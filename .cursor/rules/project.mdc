@@ -1,0 +1,46 @@
+---
+description: Project rules for agentme.cz — Astro 5 landing page for AgentMesh
+globs: ["**/*.astro", "**/*.ts", "**/*.css"]
+alwaysApply: true
+---
+
+# agentme.cz — Cursor Rules
+
+For full context see AGENTS.md in the repo root.
+
+## Stack
+- Astro 5, Tailwind CSS v4 (@tailwindcss/vite), anime.js v4, TypeScript strict
+- Self-hosted Geist fonts via @fontsource-variable
+
+## Key Rules
+
+### Content
+- ALL text lives in `src/data/content.ts` — never hardcode strings in components
+- Tone: visionary manifesto, like Linear.app — no buzzwords, punchy copy
+
+### Styling
+- Tailwind v4 uses `@theme` directive in `src/styles/global.css` — no tailwind.config.js
+- Dark mode only: bg #08090A, text #E8E8ED, accent gradient cyan #00D4FF → purple #7B61FF
+- Section padding: 120-160px vertical, max-width 1200px centered
+
+### Animations
+- Use anime.js v4 modular imports: `import { animate, onScroll } from 'animejs'`
+- Always add `prefers-reduced-motion` fallback (check window.matchMedia)
+- Only animate `transform` and `opacity`
+- Fade-in: 800ms easeOutExpo, stagger 100ms, scroll threshold 20%
+
+### TypeScript
+- Strict mode, no `any` types
+- Component props use `interface Props { ... }`
+
+### Performance
+- Keep JS bundle under 50KB total
+- No external font CDNs — self-hosted only
+- Verify with `npm run build`
+
+## Commands
+```
+npm run dev       # Dev server localhost:4321
+npm run build     # Production build
+npm run preview   # Preview build
+```

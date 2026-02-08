@@ -1,43 +1,52 @@
-# Astro Starter Kit: Minimal
+# agentme.cz
 
-```sh
-npm create astro@latest -- --template minimal
+Promotional landing page for [AgentMesh](https://github.com/timutti/agentmesh) — the decentralized marketplace and trust layer for AI agents.
+
+**Live:** [agentme.cz](https://agentme.cz)
+
+## Stack
+
+- **Astro 5** — static site, zero JS by default
+- **Tailwind CSS 4** — utility-first styling via `@tailwindcss/vite`
+- **anime.js 4** — scroll-driven animations
+- **TypeScript** — strict mode
+- **Geist** — self-hosted variable fonts
+
+## Quick Start
+
+```bash
+npm install
+npm run dev        # → http://localhost:4321
+npm run build      # → dist/
+npm run preview    # preview production build
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Project Structure
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```
+src/
+├── data/content.ts          # All text content (single source of truth)
+├── styles/global.css        # Design tokens + Tailwind theme
+├── layouts/Base.astro       # HTML head, meta, OG, structured data
+├── pages/index.astro        # Page composition
+├── components/ui/           # Reusable primitives
+└── components/*.astro       # One file per page section
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## AI Agent Context
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+This repo includes context files for AI coding agents:
 
-Any static assets, like images, can be placed in the `public/` directory.
+| File | Agent | Purpose |
+|---|---|---|
+| `AGENTS.md` | Universal | Full project context, architecture, conventions, TODO |
+| `CLAUDE.md` | Claude Code | Quick reference, Claude-specific pointers |
+| `.github/copilot-instructions.md` | GitHub Copilot | Repo-wide instructions |
+| `.cursor/rules/project.mdc` | Cursor | Project rules with glob scoping |
+| `BRIEF.md` | All | Original design brief with visual references |
 
-## 🧞 Commands
+**Start with `AGENTS.md`** — it has everything an agent (or human) needs to contribute.
 
-All commands are run from the root of the project, from a terminal:
+## License
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+MIT
