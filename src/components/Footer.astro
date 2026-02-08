@@ -1,0 +1,30 @@
+---
+import { site, footer } from '../data/content';
+---
+
+<footer class="border-t border-border">
+  <div class="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-8">
+    <span class="text-sm font-semibold text-text-secondary">AgentMesh</span>
+
+    <div class="flex items-center gap-6">
+      <a
+        href={site.repoUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-sm text-text-muted transition-colors hover:text-text-secondary"
+      >
+        GitHub
+      </a>
+      <a
+        href={site.docsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-sm text-text-muted transition-colors hover:text-text-secondary"
+      >
+        Docs
+      </a>
+    </div>
+
+    <span class="text-xs text-text-muted">{footer.copyright}</span>
+  </div>
+</footer>

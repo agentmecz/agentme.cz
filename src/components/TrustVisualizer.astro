@@ -1,0 +1,122 @@
+---
+import SectionWrapper from './ui/SectionWrapper.astro';
+import FadeIn from './ui/FadeIn.astro';
+import GradientText from './ui/GradientText.astro';
+import { trustScore } from '../data/content';
+---
+
+<SectionWrapper>
+  <FadeIn>
+    <h2 class="mb-16 text-center text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+      <GradientText as="span">{trustScore.headline}</GradientText>
+    </h2>
+  </FadeIn>
+
+  <FadeIn>
+    <div class="mx-auto max-w-lg rounded-2xl border border-border bg-bg-card/50 p-8">
+      <!-- Total score -->
+      <div class="mb-8 text-center">
+        <div class="text-sm text-text-muted uppercase tracking-wider mb-2">Trust Score</div>
+        <div class="trust-counter text-6xl font-bold tabular-nums text-accent-cyan" data-target={trustScore.total}>
+          0.00
+        </div>
+      </div>
+
+      <!-- Components -->
+      <div class="space-y-5">
+        {trustScore.components.map((comp) => (
+          <div class="group">
+            <div class="mb-1.5 flex items-center justify-between text-sm">
+              <span class="text-text-secondary">
+                {comp.name}
+                <span class="text-text-muted ml-1">({comp.weight})</span>
+              </span>
+              <span class="trust-bar-value tabular-nums font-medium" data-target={comp.value}>0.00</span>
+            </div>
+            <div class="h-2 overflow-hidden rounded-full bg-bg-secondary">
+              <div
+                class="trust-bar h-full rounded-full bg-gradient-to-r from-accent-cyan to-accent-purple transition-all duration-1000 ease-out"
+                data-width={comp.value * 100}
+                style="width: 0%"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Formula -->
+      <div class="mt-6 rounded-lg bg-bg-secondary p-3 text-center font-mono text-xs text-text-muted">
+        0.50 × Reputation + 0.30 × Stake + 0.20 × Endorsements
+      </div>
+    </div>
+  </FadeIn>
+</SectionWrapper>
+
+<script>
+  import { onScroll } from 'animejs';
+
+  function initTrustVisualizer() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const counter = document.querySelector<HTMLElement>('.trust-counter');
+    if (!counter) return;
+
+    const target = parseFloat(counter.dataset.target || '0');
+    let animated = false;
+
+    function animateValues() {
+      if (animated) return;
+      animated = true;
+
+      // Counter animation
+      const duration = prefersReducedMotion ? 0 : 1200;
+      const start = performance.now();
+
+      function tick(now: number) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        counter!.textContent = (target * eased).toFixed(2);
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      if (duration > 0) requestAnimationFrame(tick);
+      else counter.textContent = target.toFixed(2);
+
+      // Bars
+      document.querySelectorAll<HTMLElement>('.trust-bar').forEach((bar) => {
+        const w = bar.dataset.width || '0';
+        if (prefersReducedMotion) {
+          bar.style.width = `${w}%`;
+        } else {
+          setTimeout(() => (bar.style.width = `${w}%`), 200);
+        }
+      });
+
+      // Bar values
+      document.querySelectorAll<HTMLElement>('.trust-bar-value').forEach((el) => {
+        const t = parseFloat(el.dataset.target || '0');
+        if (prefersReducedMotion) {
+          el.textContent = t.toFixed(2);
+          return;
+        }
+        const s = performance.now();
+        function tickVal(now: number) {
+          const elapsed = now - s;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = (t * eased).toFixed(2);
+          if (progress < 1) requestAnimationFrame(tickVal);
+        }
+        requestAnimationFrame(tickVal);
+      });
+    }
+
+    onScroll({
+      target: counter,
+      enter: 'bottom-=50 top',
+      onEnter: animateValues,
+    });
+  }
+
+  initTrustVisualizer();
+  document.addEventListener('astro:page-load', initTrustVisualizer);
+</script>

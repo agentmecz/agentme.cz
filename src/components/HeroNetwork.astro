@@ -1,0 +1,139 @@
+---
+---
+
+<div class="hero-network pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+  <canvas id="hero-canvas" class="h-full w-full"></canvas>
+</div>
+
+<script>
+  import { animate, utils } from 'animejs';
+
+  interface Node {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    radius: number;
+    opacity: number;
+    pulseOffset: number;
+  }
+
+  function initNetwork() {
+    const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement | null;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      drawStatic(canvas, ctx);
+      return;
+    }
+
+    const nodes: Node[] = [];
+    const nodeCount = window.innerWidth < 768 ? 20 : 40;
+    const connectionDistance = 150;
+
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio, 2);
+      canvas!.width = canvas!.offsetWidth * dpr;
+      canvas!.height = canvas!.offsetHeight * dpr;
+      ctx!.scale(dpr, dpr);
+    }
+
+    function createNodes() {
+      nodes.length = 0;
+      const w = canvas!.offsetWidth;
+      const h = canvas!.offsetHeight;
+      for (let i = 0; i < nodeCount; i++) {
+        nodes.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          radius: utils.random(2, 4),
+          opacity: utils.random(0.3, 0.8),
+          pulseOffset: Math.random() * Math.PI * 2,
+        });
+      }
+    }
+
+    function draw(time: number) {
+      const w = canvas!.offsetWidth;
+      const h = canvas!.offsetHeight;
+      ctx!.clearRect(0, 0, w, h);
+
+      // Update positions
+      for (const node of nodes) {
+        node.x += node.vx;
+        node.y += node.vy;
+        if (node.x < 0 || node.x > w) node.vx *= -1;
+        if (node.y < 0 || node.y > h) node.vy *= -1;
+      }
+
+      // Draw connections
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < connectionDistance) {
+            const alpha = (1 - dist / connectionDistance) * 0.15;
+            ctx!.strokeStyle = `rgba(0, 212, 255, ${alpha})`;
+            ctx!.lineWidth = 1;
+            ctx!.beginPath();
+            ctx!.moveTo(nodes[i].x, nodes[i].y);
+            ctx!.lineTo(nodes[j].x, nodes[j].y);
+            ctx!.stroke();
+          }
+        }
+      }
+
+      // Draw nodes
+      for (const node of nodes) {
+        const pulse = Math.sin(time * 0.001 + node.pulseOffset) * 0.3 + 0.7;
+        const alpha = node.opacity * pulse;
+        ctx!.fillStyle = `rgba(0, 212, 255, ${alpha})`;
+        ctx!.beginPath();
+        ctx!.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+        ctx!.fill();
+
+        // Glow
+        ctx!.fillStyle = `rgba(0, 212, 255, ${alpha * 0.2})`;
+        ctx!.beginPath();
+        ctx!.arc(node.x, node.y, node.radius * 3, 0, Math.PI * 2);
+        ctx!.fill();
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    resize();
+    createNodes();
+    requestAnimationFrame(draw);
+    window.addEventListener('resize', () => { resize(); createNodes(); });
+  }
+
+  function drawStatic(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    canvas.width = canvas.offsetWidth * dpr;
+    canvas.height = canvas.offsetHeight * dpr;
+    ctx.scale(dpr, dpr);
+
+    const w = canvas.offsetWidth;
+    const h = canvas.offsetHeight;
+    const count = 25;
+
+    for (let i = 0; i < count; i++) {
+      const x = Math.random() * w;
+      const y = Math.random() * h;
+      ctx.fillStyle = 'rgba(0, 212, 255, 0.3)';
+      ctx.beginPath();
+      ctx.arc(x, y, 3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  initNetwork();
+  document.addEventListener('astro:page-load', initNetwork);
+</script>

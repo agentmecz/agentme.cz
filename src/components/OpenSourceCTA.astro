@@ -1,0 +1,38 @@
+---
+import SectionWrapper from './ui/SectionWrapper.astro';
+import FadeIn from './ui/FadeIn.astro';
+import GradientText from './ui/GradientText.astro';
+import Button from './ui/Button.astro';
+import GitHubStarButton from './GitHubStarButton.astro';
+import CodeSnippet from './CodeSnippet.astro';
+import { cta, site } from '../data/content';
+---
+
+<section class="relative overflow-hidden">
+  <!-- Background glow -->
+  <div
+    class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_50%_50%,rgba(123,97,255,0.06),transparent_70%)]"
+    aria-hidden="true"
+  />
+
+  <SectionWrapper class="relative z-10 text-center">
+    <FadeIn>
+      <h2 class="mb-6 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+        <GradientText as="span">{cta.headline}</GradientText>
+      </h2>
+    </FadeIn>
+
+    <FadeIn delay={100}>
+      <div class="flex flex-wrap items-center justify-center gap-4 mb-12">
+        <GitHubStarButton size="large" />
+        <Button href={site.docsUrl} variant="secondary" target="_blank" rel="noopener noreferrer">
+          {cta.ctaSecondary}
+        </Button>
+      </div>
+    </FadeIn>
+
+    <FadeIn delay={200}>
+      <CodeSnippet code={cta.codeSnippet} />
+    </FadeIn>
+  </SectionWrapper>
+</section>

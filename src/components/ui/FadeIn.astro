@@ -1,0 +1,45 @@
+---
+interface Props {
+  class?: string;
+  delay?: number;
+}
+
+const { class: className = '', delay = 0 } = Astro.props;
+---
+
+<div class:list={['fade-in-section opacity-0 translate-y-6', className]} data-delay={delay}>
+  <slot />
+</div>
+
+<script>
+  import { animate, onScroll } from 'animejs';
+
+  function initFadeIn() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    document.querySelectorAll<HTMLElement>('.fade-in-section').forEach((el) => {
+      if (prefersReducedMotion) {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+        return;
+      }
+
+      const delay = parseInt(el.dataset.delay || '0', 10);
+
+      animate(el, {
+        opacity: [0, 1],
+        translateY: [24, 0],
+        duration: 800,
+        delay,
+        easing: 'easeOutExpo',
+        autoplay: onScroll({
+          target: el,
+          enter: 'bottom-=100 top',
+        }),
+      });
+    });
+  }
+
+  initFadeIn();
+  document.addEventListener('astro:page-load', initFadeIn);
+</script>
