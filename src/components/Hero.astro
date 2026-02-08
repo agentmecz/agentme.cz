@@ -22,12 +22,16 @@ import { hero, site } from '../data/content';
     <div class="flex flex-col items-center gap-6">
       <Badge>{hero.badge}</Badge>
 
-      <h1 class="max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight md:text-6xl lg:text-7xl">
+      <h1 class="max-w-4xl text-4xl font-bold leading-[1.1] tracking-tight md:text-6xl lg:text-7xl">
         <GradientText as="span">{hero.headline}</GradientText>
       </h1>
 
-      <p class="max-w-xl text-lg text-text-secondary md:text-xl">
+      <p class="max-w-2xl text-lg leading-relaxed text-text-secondary md:text-xl">
         {hero.subheadline}
+      </p>
+
+      <p class="max-w-xl text-sm text-text-muted italic">
+        "The HTTP of agent-to-agent commerce"
       </p>
 
       <div class="flex flex-wrap items-center justify-center gap-4 pt-4">

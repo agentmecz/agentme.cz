@@ -7,46 +7,50 @@ import { trustScore } from '../data/content';
 
 <SectionWrapper>
   <FadeIn>
-    <h2 class="mb-16 text-center text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+    <h2 class="mb-4 text-center text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
       <GradientText as="span">{trustScore.headline}</GradientText>
     </h2>
+    <p class="mb-16 text-center text-text-secondary max-w-2xl mx-auto">
+      {trustScore.description}
+    </p>
   </FadeIn>
 
   <FadeIn>
     <div class="mx-auto max-w-lg rounded-2xl border border-border bg-bg-card/50 p-8">
       <!-- Total score -->
       <div class="mb-8 text-center">
-        <div class="text-sm text-text-muted uppercase tracking-wider mb-2">Trust Score</div>
+        <div class="text-sm text-text-muted uppercase tracking-wider mb-2">Composite Trust Score</div>
         <div class="trust-counter text-6xl font-bold tabular-nums text-accent-cyan" data-target={trustScore.total}>
           0.00
         </div>
       </div>
 
       <!-- Components -->
-      <div class="space-y-5">
+      <div class="space-y-6">
         {trustScore.components.map((comp) => (
           <div class="group">
-            <div class="mb-1.5 flex items-center justify-between text-sm">
-              <span class="text-text-secondary">
+            <div class="mb-1 flex items-center justify-between text-sm">
+              <span class="text-text-primary font-medium">
                 {comp.name}
-                <span class="text-text-muted ml-1">({comp.weight})</span>
+                <span class="text-text-muted ml-1 font-normal">({comp.weight})</span>
               </span>
-              <span class="trust-bar-value tabular-nums font-medium" data-target={comp.value}>0.00</span>
+              <span class="trust-bar-value tabular-nums font-medium text-accent-cyan" data-target={comp.value}>0.00</span>
             </div>
-            <div class="h-2 overflow-hidden rounded-full bg-bg-secondary">
+            <div class="h-2 overflow-hidden rounded-full bg-bg-secondary mb-1.5">
               <div
                 class="trust-bar h-full rounded-full bg-gradient-to-r from-accent-cyan to-accent-purple transition-all duration-1000 ease-out"
                 data-width={comp.value * 100}
                 style="width: 0%"
               />
             </div>
+            <p class="text-xs text-text-muted">{comp.detail}</p>
           </div>
         ))}
       </div>
 
       <!-- Formula -->
       <div class="mt-6 rounded-lg bg-bg-secondary p-3 text-center font-mono text-xs text-text-muted">
-        0.50 × Reputation + 0.30 × Stake + 0.20 × Endorsements
+        {trustScore.formula}
       </div>
     </div>
   </FadeIn>

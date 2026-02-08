@@ -12,18 +12,21 @@ const icons: Record<string, string> = {
 
 <SectionWrapper>
   <FadeIn>
-    <h2 class="mb-16 text-center text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+    <h2 class="mb-4 text-center text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
       {problem.headline}
     </h2>
+    <p class="mb-16 text-center text-text-secondary max-w-2xl mx-auto">
+      {problem.description}
+    </p>
   </FadeIn>
 
   <div class="grid gap-8 md:grid-cols-3">
     {problem.points.map((point, i) => (
       <FadeIn delay={i * 100}>
-        <div class="rounded-xl border border-border bg-bg-card/50 p-8 text-center transition-colors duration-300 hover:border-border-glow">
+        <div class="rounded-xl border border-border bg-bg-card/50 p-8 transition-colors duration-300 hover:border-border-glow">
           <div class="mb-4 inline-flex text-accent-cyan" set:html={icons[point.icon]} />
-          <h3 class="mb-2 text-lg font-semibold">{point.title}</h3>
-          <p class="text-sm text-text-secondary">{point.description}</p>
+          <h3 class="mb-3 text-lg font-semibold">{point.title}</h3>
+          <p class="text-sm leading-relaxed text-text-secondary">{point.description}</p>
         </div>
       </FadeIn>
     ))}

@@ -5,7 +5,7 @@ import GradientText from './ui/GradientText.astro';
 import Button from './ui/Button.astro';
 import GitHubStarButton from './GitHubStarButton.astro';
 import CodeSnippet from './CodeSnippet.astro';
-import { cta, site } from '../data/content';
+import { cta, site, stats } from '../data/content';
 ---
 
 <section class="relative overflow-hidden">
@@ -17,12 +17,40 @@ import { cta, site } from '../data/content';
 
   <SectionWrapper class="relative z-10 text-center">
     <FadeIn>
-      <h2 class="mb-6 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+      <h2 class="mb-4 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
         <GradientText as="span">{cta.headline}</GradientText>
       </h2>
+      <p class="mb-10 text-text-secondary max-w-xl mx-auto">
+        {cta.description}
+      </p>
     </FadeIn>
 
-    <FadeIn delay={100}>
+    <!-- Stats row -->
+    <FadeIn delay={80}>
+      <div class="flex flex-wrap items-center justify-center gap-8 mb-10">
+        <div class="text-center">
+          <div class="text-2xl font-bold text-accent-cyan">{stats.contracts}</div>
+          <div class="text-xs text-text-muted">Smart Contracts</div>
+        </div>
+        <div class="h-8 w-px bg-border" aria-hidden="true" />
+        <div class="text-center">
+          <div class="text-2xl font-bold text-accent-cyan">{stats.tests}</div>
+          <div class="text-xs text-text-muted">Tests Passing</div>
+        </div>
+        <div class="h-8 w-px bg-border" aria-hidden="true" />
+        <div class="text-center">
+          <div class="text-2xl font-bold text-accent-cyan">{stats.chain}</div>
+          <div class="text-xs text-text-muted">Deployed On</div>
+        </div>
+        <div class="h-8 w-px bg-border" aria-hidden="true" />
+        <div class="text-center">
+          <div class="text-2xl font-bold text-accent-cyan">{stats.license}</div>
+          <div class="text-xs text-text-muted">License</div>
+        </div>
+      </div>
+    </FadeIn>
+
+    <FadeIn delay={150}>
       <div class="flex flex-wrap items-center justify-center gap-4 mb-12">
         <GitHubStarButton size="large" />
         <Button href={site.docsUrl} variant="secondary" target="_blank" rel="noopener noreferrer">
