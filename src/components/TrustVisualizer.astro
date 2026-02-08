@@ -94,7 +94,7 @@ const { trustScore } = t(locale);
         if (progress < 1) requestAnimationFrame(tick);
       }
       if (duration > 0) requestAnimationFrame(tick);
-      else counter.textContent = target.toFixed(2);
+      else counter!.textContent = target.toFixed(2);
 
       // Bars
       document.querySelectorAll<HTMLElement>('.trust-bar').forEach((bar) => {
