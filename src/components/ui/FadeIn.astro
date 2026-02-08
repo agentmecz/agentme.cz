@@ -2,12 +2,13 @@
 interface Props {
   class?: string;
   delay?: number;
+  style?: string;
 }
 
-const { class: className = '', delay = 0 } = Astro.props;
+const { class: className = '', delay = 0, style } = Astro.props;
 ---
 
-<div class:list={['fade-in-section opacity-0 translate-y-6', className]} data-delay={delay}>
+<div class:list={['fade-in-section opacity-0 translate-y-6', className]} data-delay={delay} style={style}>
   <slot />
 </div>
 

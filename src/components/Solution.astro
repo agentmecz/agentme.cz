@@ -28,9 +28,9 @@ const layerIcons: Record<string, string> = {
   </FadeIn>
 
   <div class="mx-auto max-w-2xl">
-    <div class="flex flex-col items-center gap-7">
+    <div class="flex flex-col items-center gap-8">
       {solution.layers.map((layer, i) => (
-        <FadeIn delay={i * 120} class="w-full relative">
+        <FadeIn delay={i * 120} class="w-full relative" style={`z-index: ${solution.layers.length - i}`}>
           <div class="group relative flex items-start gap-6 rounded-xl border border-border bg-bg-card/30 p-6 transition-all duration-300 hover:border-border-glow hover:bg-bg-card/60">
             <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-bg-secondary text-accent-cyan transition-colors group-hover:bg-accent-cyan/10">
               <Fragment set:html={layerIcons[layer.icon]} />
@@ -42,8 +42,8 @@ const layerIcons: Record<string, string> = {
             </div>
           </div>
           {i < solution.layers.length - 1 && (
-            <div class="absolute -bottom-7 left-1/2 -translate-x-1/2 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-border bg-bg-secondary text-text-muted" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 z-10 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-bg-secondary text-text-muted" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 5v14" /><path d="M5 12h14" />
               </svg>
             </div>
