@@ -77,6 +77,21 @@ body {
   color: #FBBF24;
 }
 
+/* CTA glow pulse */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 16px rgba(0, 212, 255, 0.15), 0 0 32px rgba(123, 97, 255, 0.08);
+  }
+  50% {
+    box-shadow: 0 0 24px rgba(0, 212, 255, 0.3), 0 0 48px rgba(123, 97, 255, 0.15);
+  }
+}
+
+.github-star-btn,
+a[class*="from-accent-cyan"][class*="to-accent-purple"] {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

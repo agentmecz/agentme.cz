@@ -41,7 +41,7 @@ function highlightLine(line: string): string {
 const lines = code.split('\n');
 ---
 
-<div class="mx-auto max-w-2xl overflow-hidden rounded-xl border border-border bg-bg-secondary">
+<div class="code-snippet mx-auto max-w-2xl overflow-hidden rounded-xl border border-border bg-bg-secondary">
   <!-- Window chrome -->
   <div class="flex items-center gap-2 border-b border-border px-4 py-3">
     <div class="h-3 w-3 rounded-full bg-text-muted/30" />
@@ -52,6 +52,42 @@ const lines = code.split('\n');
 
   <!-- Code -->
   <pre class="overflow-x-auto p-6 text-left" tabindex="0" role="region" aria-label="Code example"><code class="block font-mono text-sm leading-relaxed text-text-secondary">{lines.map((line) => (
-    <span class="code-line block" set:html={highlightLine(line) || '\u00A0'} />
+    <span class="code-line block opacity-0" set:html={highlightLine(line) || '\u00A0'} />
   ))}</code></pre>
 </div>
+
+<script>
+  import { animate, onScroll, stagger } from 'animejs';
+
+  function initCodeTyping() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    document.querySelectorAll('.code-snippet').forEach((snippet) => {
+      const lines = snippet.querySelectorAll<HTMLElement>('.code-line');
+      if (!lines.length) return;
+
+      if (prefersReducedMotion) {
+        lines.forEach((l) => (l.style.opacity = '1'));
+        return;
+      }
+
+      onScroll({
+        target: snippet,
+        enter: 'bottom-=100 top',
+        repeat: false,
+        onEnter: () => {
+          animate(lines, {
+            opacity: [0, 1],
+            translateX: ['-8px', '0px'],
+            duration: 400,
+            delay: stagger(60),
+            ease: 'outExpo',
+          });
+        },
+      });
+    });
+  }
+
+  initCodeTyping();
+  document.addEventListener('astro:page-load', initCodeTyping);
+</script>

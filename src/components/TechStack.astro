@@ -23,9 +23,9 @@ const { techStack } = t(locale);
     </p>
   </FadeIn>
 
-  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  <div class="flex flex-wrap justify-center gap-4">
     {techStack.items.map((item, i) => (
-      <FadeIn delay={i * 60}>
+      <FadeIn delay={i * 60} class="w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.75rem)]">
         <div class="flex flex-col rounded-xl border border-border bg-bg-card/30 px-5 py-4 transition-all duration-300 hover:border-border-glow hover:bg-bg-card/60">
           <span class="text-sm font-semibold text-text-primary">{item.name}</span>
           <span class="mt-1 text-xs text-text-muted">{item.description}</span>

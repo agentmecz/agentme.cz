@@ -59,9 +59,9 @@ function highlightLine(line: string): string {
               <p class="mt-1 text-sm text-text-secondary">{step.description}</p>
             </div>
           </div>
-          <div class="ml-0 md:ml-15 overflow-x-auto rounded-lg bg-bg-primary border border-border p-4">
+          <div class="code-snippet ml-0 md:ml-15 overflow-x-auto rounded-lg bg-bg-primary border border-border p-4">
             <pre class="text-sm leading-relaxed" tabindex="0" role="region" aria-label={`Code for step ${step.number}`}><code class="font-mono text-text-secondary">{step.code.split('\n').map((line: string) => (
-              <span class="code-line block" set:html={highlightLine(line) || '\u00A0'} />
+              <span class="code-line block opacity-0" set:html={highlightLine(line) || '\u00A0'} />
             ))}</code></pre>
           </div>
         </div>
