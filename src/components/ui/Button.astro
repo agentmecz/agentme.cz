@@ -2,14 +2,20 @@
 interface Props {
   href?: string;
   variant?: 'primary' | 'secondary';
+  size?: 'default' | 'large';
   class?: string;
   target?: string;
   rel?: string;
 }
 
-const { href, variant = 'primary', class: className = '', target, rel } = Astro.props;
+const { href, variant = 'primary', size = 'default', class: className = '', target, rel } = Astro.props;
 
-const base = 'inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-sm font-medium transition-all duration-300 cursor-pointer';
+const sizeClasses = {
+  default: 'px-6 py-3 text-sm',
+  large: 'px-8 py-4 text-base',
+};
+
+const base = 'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-300 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-cyan';
 const variants = {
   primary:
     'bg-gradient-to-r from-accent-cyan to-accent-purple text-bg-primary hover:shadow-[0_0_24px_rgba(0,212,255,0.3)] hover:scale-[1.02]',
@@ -18,6 +24,6 @@ const variants = {
 };
 ---
 
-<a href={href} target={target} rel={rel} class:list={[base, variants[variant], className]}>
+<a href={href} target={target} rel={rel} class:list={[base, sizeClasses[size], variants[variant], className]}>
   <slot />
 </a>

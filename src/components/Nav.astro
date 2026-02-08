@@ -14,15 +14,16 @@ const links = [
   aria-label="Main"
 >
   <div class="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-4">
-    <a href="#" class="text-sm font-semibold text-text-primary transition-colors hover:text-accent-cyan">
+    <a href="#" class="text-sm font-semibold text-text-primary transition-colors hover:text-accent-cyan focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-cyan">
       AgentMesh
     </a>
 
+    <!-- Desktop nav -->
     <div class="hidden items-center gap-6 sm:flex">
       {links.map((link) => (
         <a
           href={link.href}
-          class="text-sm text-text-muted transition-colors hover:text-text-secondary"
+          class="text-sm text-text-muted transition-colors hover:text-text-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-cyan"
         >
           {link.label}
         </a>
@@ -31,7 +32,44 @@ const links = [
         href={site.repoUrl}
         target="_blank"
         rel="noopener noreferrer"
-        class="text-sm text-text-muted transition-colors hover:text-text-secondary"
+        class="text-sm text-text-muted transition-colors hover:text-text-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-cyan"
+      >
+        GitHub
+      </a>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button
+      class="nav-toggle flex h-10 w-10 items-center justify-center rounded-lg text-text-secondary transition-colors hover:text-text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-cyan sm:hidden"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      type="button"
+    >
+      <svg class="nav-icon-open h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 6h16" /><path d="M4 12h16" /><path d="M4 18h16" />
+      </svg>
+      <svg class="nav-icon-close hidden h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu panel -->
+  <div class="nav-mobile hidden border-t border-border bg-bg-primary/95 backdrop-blur-lg sm:hidden">
+    <div class="flex flex-col px-6 py-4 gap-1">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="nav-mobile-link rounded-lg px-3 py-2.5 text-sm text-text-secondary transition-colors hover:bg-bg-card hover:text-text-primary"
+        >
+          {link.label}
+        </a>
+      ))}
+      <a
+        href={site.repoUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="nav-mobile-link rounded-lg px-3 py-2.5 text-sm text-text-secondary transition-colors hover:bg-bg-card hover:text-text-primary"
       >
         GitHub
       </a>
@@ -42,18 +80,41 @@ const links = [
 <script>
   function initNav() {
     const nav = document.querySelector<HTMLElement>('.site-nav');
-    if (!nav) return;
+    const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+    const mobile = document.querySelector<HTMLElement>('.nav-mobile');
+    const iconOpen = document.querySelector<HTMLElement>('.nav-icon-open');
+    const iconClose = document.querySelector<HTMLElement>('.nav-icon-close');
+    if (!nav || !toggle || !mobile || !iconOpen || !iconClose) return;
 
-    let lastY = 0;
+    let open = false;
 
+    function setOpen(val: boolean) {
+      open = val;
+      toggle!.setAttribute('aria-expanded', String(open));
+      mobile!.classList.toggle('hidden', !open);
+      iconOpen!.classList.toggle('hidden', open);
+      iconClose!.classList.toggle('hidden', !open);
+    }
+
+    toggle.addEventListener('click', () => setOpen(!open));
+
+    // Close on link click
+    mobile.querySelectorAll('.nav-mobile-link').forEach((link) => {
+      link.addEventListener('click', () => setOpen(false));
+    });
+
+    // Close on escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && open) setOpen(false);
+    });
+
+    // Scroll styling
     function onScroll() {
-      const y = window.scrollY;
-      if (y > 80) {
+      if (window.scrollY > 80) {
         nav!.classList.add('nav-scrolled');
       } else {
         nav!.classList.remove('nav-scrolled');
       }
-      lastY = y;
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });

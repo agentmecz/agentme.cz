@@ -27,22 +27,22 @@ import { cta, site, stats } from '../data/content';
 
     <!-- Stats row -->
     <FadeIn delay={80}>
-      <div class="flex flex-wrap items-center justify-center gap-8 mb-10">
+      <div class="grid grid-cols-2 gap-6 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-8 mb-10">
         <div class="text-center">
           <div class="text-2xl font-bold text-accent-cyan">{stats.contracts}</div>
           <div class="text-xs text-text-muted">Smart Contracts</div>
         </div>
-        <div class="h-8 w-px bg-border" aria-hidden="true" />
+        <div class="hidden h-8 w-px bg-border sm:block" aria-hidden="true" />
         <div class="text-center">
           <div class="text-2xl font-bold text-accent-cyan">{stats.tests}</div>
           <div class="text-xs text-text-muted">Tests Passing</div>
         </div>
-        <div class="h-8 w-px bg-border" aria-hidden="true" />
+        <div class="hidden h-8 w-px bg-border sm:block" aria-hidden="true" />
         <div class="text-center">
           <div class="text-2xl font-bold text-accent-cyan">{stats.chain}</div>
           <div class="text-xs text-text-muted">Deployed On</div>
         </div>
-        <div class="h-8 w-px bg-border" aria-hidden="true" />
+        <div class="hidden h-8 w-px bg-border sm:block" aria-hidden="true" />
         <div class="text-center">
           <div class="text-2xl font-bold text-accent-cyan">{stats.license}</div>
           <div class="text-xs text-text-muted">License</div>
@@ -53,7 +53,7 @@ import { cta, site, stats } from '../data/content';
     <FadeIn delay={150}>
       <div class="flex flex-wrap items-center justify-center gap-4 mb-12">
         <GitHubStarButton size="large" />
-        <Button href={site.docsUrl} variant="secondary" target="_blank" rel="noopener noreferrer">
+        <Button href={site.docsUrl} variant="secondary" size="large" target="_blank" rel="noopener noreferrer">
           {cta.ctaSecondary}
         </Button>
       </div>

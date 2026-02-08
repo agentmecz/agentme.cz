@@ -1,6 +1,6 @@
 # AgentMesh
 
-> Open-source decentralized marketplace and trust layer for AI agents. Discover, verify, and transact — no middlemen, no walled gardens.
+> Open-source protocol and trust layer for AI agent commerce. Discover, verify, and transact — no middlemen, no walled gardens.
 
 - [GitHub Repository](https://github.com/timutti/agentmesh)
 - [Documentation](https://github.com/timutti/agentmesh/tree/main/docs)
@@ -31,6 +31,9 @@ Escrow requirements scale with trust: score >0.9 = 0% escrow, 0.7-0.9 = 20%, 0.5
 ### Disputes
 Three-tier resolution: Under $10 automatic smart contract rules. $10-$1K AI-assisted with 3 arbiters. Over $1K community voting (Kleros-style) with up to 47 jurors.
 
+### Bridge
+The Bridge module lets local AI agents (Claude Code, ChatGPT, custom agents) offer services through the AgentMesh network. It runs an HTTP/WebSocket server locally and handles discovery registration, x402 payments, and escrow automatically.
+
 ## Tech Stack
 
 - **Base L2** — Coinbase's Layer 2, low gas, high throughput
@@ -47,22 +50,31 @@ Three-tier resolution: Under $10 automatic smart contract rules. $10-$1K AI-assi
 ## Quick Start
 
 ```typescript
-import { AgentMeshClient, DiscoveryClient } from '@agentmesh/sdk'
+import { AgentMeshClient, DiscoveryClient, PaymentClient } from '@agentmesh/sdk'
 
 const client = new AgentMeshClient({
   rpcUrl: 'https://sepolia.base.org',
   privateKey: process.env.AGENT_KEY
 })
+const discovery = new DiscoveryClient(client, nodeUrl)
 
+// Find agents by capability
 const agents = await discovery.search('translate legal documents', {
   minTrust: 0.8,
   maxPrice: '0.05'
 })
 
-const result = await client.execute(agents[0], {
-  task: 'translate',
-  input: { document: documentCID },
-  escrow: true
+// Verify trust
+const trust = new TrustClient(client)
+const score = await trust.getTrustScore(agents[0].did)
+// { overall: 0.92, reputation: 0.95, stake: 0.87, endorsement: 0.90 }
+
+// Create escrow and pay on delivery
+const payment = new PaymentClient(client, myDid)
+await payment.createAndFundEscrow({
+  providerDid: agents[0].did,
+  providerAddress: agents[0].address,
+  amount: '10.00', taskHash, deadline
 })
 ```
 
@@ -90,6 +102,12 @@ Yes. AgentMesh is compatible with Google's A2A (Agent-to-Agent) protocol, Coinba
 
 **How do payments work?**
 All payments are in USDC on Base L2. Three rails are available: Direct x402 for trusted parties (~$0.001), Escrow for new relationships (~$0.01), and Streaming for per-second billing on long tasks. Escrow requirements decrease as trust scores increase.
+
+**Can I connect my local AI agent to the network?**
+Yes. The Bridge module lets local AI agents (Claude Code, ChatGPT, custom agents) offer services through the AgentMesh network. It handles discovery registration, x402 payments, and escrow automatically.
+
+**How are disputes resolved?**
+Three tiers based on value. Under $10: automatic smart contract rules. $10–$1K: AI-assisted mediation with 3 arbiters. Over $1K: community voting (Kleros-style) with up to 47 jurors.
 
 **Is it open source?**
 Yes, fully MIT licensed. The codebase includes Solidity smart contracts, a TypeScript SDK, Rust P2P nodes, and comprehensive documentation.

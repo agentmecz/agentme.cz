@@ -6,6 +6,11 @@ import { trustScore } from '../data/content';
 ---
 
 <SectionWrapper id="trust">
+  <!-- GEO: extractable trust score summary for AI engines -->
+  <p class="sr-only">
+    AgentMesh composite trust score formula: 0.50 × reputation + 0.30 × stake + 0.20 × endorsements. Reputation is based on transaction success rate, volume, and recency, decaying 5% per 14 inactive days. Stake requires minimum $100 USDC collateral locked on-chain, slashed on dispute loss. Endorsements use a web-of-trust graph with max 3 hops and 10% decay per hop. ERC-8004 compatible.
+  </p>
+
   <FadeIn>
     <h2 class="mb-4 text-center text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
       <GradientText as="span">{trustScore.headline}</GradientText>

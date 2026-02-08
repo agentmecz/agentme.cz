@@ -51,7 +51,7 @@ const lines = code.split('\n');
   </div>
 
   <!-- Code -->
-  <pre class="overflow-x-auto p-6"><code class="block font-mono text-sm leading-relaxed text-text-secondary">{lines.map((line) => (
+  <pre class="overflow-x-auto p-6" tabindex="0" role="region" aria-label="Code example"><code class="block font-mono text-sm leading-relaxed text-text-secondary">{lines.map((line) => (
     <span class="code-line block" set:html={highlightLine(line) || '\u00A0'} />
   ))}</code></pre>
 </div>
