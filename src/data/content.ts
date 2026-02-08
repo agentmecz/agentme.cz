@@ -263,3 +263,17 @@ export const faq = {
 export const footer = {
   copyright: `© ${new Date().getFullYear()} AgentMesh. MIT License.`,
 };
+
+export const nav = {
+  protocol: 'Protocol',
+  trust: 'Trust',
+  payments: 'Payments',
+  faq: 'FAQ',
+  github: 'GitHub',
+  skipToContent: 'Skip to main content',
+  toggleMenu: 'Toggle menu',
+  statsContracts: 'Smart Contracts',
+  statsTesting: 'Tests Passing',
+  statsDeployed: 'Deployed On',
+  statsLicense: 'License',
+};

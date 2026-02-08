@@ -2,7 +2,11 @@
 import SectionWrapper from './ui/SectionWrapper.astro';
 import FadeIn from './ui/FadeIn.astro';
 import GradientText from './ui/GradientText.astro';
-import { faq } from '../data/content';
+import { t, type Locale } from '../data/i18n';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const { faq } = t(locale);
 ---
 
 <SectionWrapper id="faq">

@@ -5,7 +5,11 @@ import GradientText from './ui/GradientText.astro';
 import Button from './ui/Button.astro';
 import GitHubStarButton from './GitHubStarButton.astro';
 import HeroNetwork from './HeroNetwork.astro';
-import { hero, site } from '../data/content';
+import { t, type Locale } from '../data/i18n';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const { hero, site } = t(locale);
 ---
 
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -40,7 +44,7 @@ import { hero, site } from '../data/content';
       </p>
 
       <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
-        <GitHubStarButton size="large" />
+        <GitHubStarButton size="large" label={hero.ctaPrimary} />
         <Button href={site.docsUrl} variant="secondary" size="large" target="_blank" rel="noopener noreferrer">
           {hero.ctaSecondary}
         </Button>

@@ -1,29 +1,38 @@
 ---
 import '../styles/global.css';
-import { site, faq } from '../data/content';
+import { type Locale, ogLocales } from '../data/i18n';
 
 interface Props {
-  title?: string;
-  description?: string;
+  title: string;
+  description: string;
+  locale: Locale;
+  faqItems: { question: string; answer: string }[];
+  siteUrl: string;
+  repoUrl: string;
 }
 
-const { title = site.title, description = site.description } = Astro.props;
+const { title, description, locale, faqItems, siteUrl, repoUrl } = Astro.props;
+
+const ogLocale = ogLocales[locale];
+const altLocale = locale === 'en' ? 'cs' : 'en';
+const canonicalUrl = locale === 'en' ? siteUrl : `${siteUrl}/cs`;
+const altUrl = locale === 'en' ? `${siteUrl}/cs` : siteUrl;
 
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "AgentMesh",
-  "url": site.url,
-  "logo": `${site.url}/favicon.svg`,
+  "url": siteUrl,
+  "logo": `${siteUrl}/favicon.svg`,
   "description": "Open-source protocol and trust layer for AI agent commerce.",
-  "sameAs": [site.repoUrl],
+  "sameAs": [repoUrl],
 };
 
 const webSiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "AgentMesh",
-  "url": site.url,
+  "url": siteUrl,
   "description": description,
   "publisher": { "@type": "Organization", "name": "AgentMesh" },
 };
@@ -33,12 +42,12 @@ const softwareSchema = {
   "@type": "SoftwareApplication",
   "name": "AgentMesh",
   "description": "Open-source protocol for AI agents to discover, trust, and transact. Semantic search, on-chain reputation, x402 micropayments, and escrow — all on Base L2.",
-  "url": site.url,
+  "url": siteUrl,
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Cross-platform",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
   "license": "https://opensource.org/licenses/MIT",
-  "codeRepository": site.repoUrl,
+  "codeRepository": repoUrl,
   "programmingLanguage": ["TypeScript", "Solidity", "Rust"],
   "softwareVersion": "0.1.0",
   "featureList": [
@@ -53,7 +62,7 @@ const softwareSchema = {
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faq.items.map((item) => ({
+  "mainEntity": faqItems.map((item) => ({
     "@type": "Question",
     "name": item.question,
     "acceptedAnswer": {
@@ -65,7 +74,7 @@ const faqSchema = {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -74,23 +83,26 @@ const faqSchema = {
     <!-- SEO -->
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={site.url} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang={locale} href={canonicalUrl} />
+    <link rel="alternate" hreflang={altLocale} href={altUrl} />
+    <link rel="alternate" hreflang="x-default" href={siteUrl} />
     <meta name="keywords" content="AgentMesh, AI agents, decentralized marketplace, agent-to-agent commerce, trust layer, x402 payments, USDC escrow, Base L2, on-chain reputation, open source, A2A protocol" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={site.url} />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={`${site.url}/og-image.png`} />
+    <meta property="og:image" content={`${siteUrl}/og-image.png`} />
     <meta property="og:site_name" content="AgentMesh" />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content={ogLocale} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${site.url}/og-image.png`} />
+    <meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -109,7 +121,7 @@ const faqSchema = {
   </head>
   <body class="min-h-screen bg-bg-primary text-text-primary overflow-x-hidden">
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:bg-accent-cyan focus:px-4 focus:py-2 focus:text-bg-primary focus:font-medium">
-      Skip to main content
+      {locale === 'cs' ? 'Přejít na hlavní obsah' : 'Skip to main content'}
     </a>
     <main id="main">
       <slot />

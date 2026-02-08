@@ -1,7 +1,11 @@
 ---
 import SectionWrapper from './ui/SectionWrapper.astro';
 import FadeIn from './ui/FadeIn.astro';
-import { techStack } from '../data/content';
+import { t, type Locale } from '../data/i18n';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const { techStack } = t(locale);
 ---
 
 <SectionWrapper id="tech-stack">

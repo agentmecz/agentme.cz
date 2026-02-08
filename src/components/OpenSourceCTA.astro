@@ -5,7 +5,11 @@ import GradientText from './ui/GradientText.astro';
 import Button from './ui/Button.astro';
 import GitHubStarButton from './GitHubStarButton.astro';
 import CodeSnippet from './CodeSnippet.astro';
-import { cta, site, stats } from '../data/content';
+import { t, type Locale } from '../data/i18n';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const { cta, site, stats, nav } = t(locale);
 ---
 
 <section id="get-started" class="relative overflow-hidden">
@@ -30,29 +34,29 @@ import { cta, site, stats } from '../data/content';
       <div class="grid grid-cols-2 gap-6 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-8 mb-10">
         <div class="text-center">
           <div class="text-2xl font-bold text-accent-cyan">{stats.contracts}</div>
-          <div class="text-xs text-text-muted">Smart Contracts</div>
+          <div class="text-xs text-text-muted">{nav.statsContracts}</div>
         </div>
         <div class="hidden h-8 w-px bg-border sm:block" aria-hidden="true" />
         <div class="text-center">
           <div class="text-2xl font-bold text-accent-cyan">{stats.tests}</div>
-          <div class="text-xs text-text-muted">Tests Passing</div>
+          <div class="text-xs text-text-muted">{nav.statsTesting}</div>
         </div>
         <div class="hidden h-8 w-px bg-border sm:block" aria-hidden="true" />
         <div class="text-center">
           <div class="text-2xl font-bold text-accent-cyan">{stats.chain}</div>
-          <div class="text-xs text-text-muted">Deployed On</div>
+          <div class="text-xs text-text-muted">{nav.statsDeployed}</div>
         </div>
         <div class="hidden h-8 w-px bg-border sm:block" aria-hidden="true" />
         <div class="text-center">
           <div class="text-2xl font-bold text-accent-cyan">{stats.license}</div>
-          <div class="text-xs text-text-muted">License</div>
+          <div class="text-xs text-text-muted">{nav.statsLicense}</div>
         </div>
       </div>
     </FadeIn>
 
     <FadeIn delay={150}>
       <div class="flex flex-wrap items-center justify-center gap-4 mb-12">
-        <GitHubStarButton size="large" />
+        <GitHubStarButton size="large" label={cta.ctaPrimary} />
         <Button href={site.docsUrl} variant="secondary" size="large" target="_blank" rel="noopener noreferrer">
           {cta.ctaSecondary}
         </Button>

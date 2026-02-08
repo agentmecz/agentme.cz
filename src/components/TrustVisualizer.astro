@@ -2,7 +2,11 @@
 import SectionWrapper from './ui/SectionWrapper.astro';
 import FadeIn from './ui/FadeIn.astro';
 import GradientText from './ui/GradientText.astro';
-import { trustScore } from '../data/content';
+import { t, type Locale } from '../data/i18n';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const { trustScore } = t(locale);
 ---
 
 <SectionWrapper id="trust">

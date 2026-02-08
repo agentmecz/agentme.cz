@@ -1,5 +1,9 @@
 ---
-import { site, footer } from '../data/content';
+import { t, type Locale } from '../data/i18n';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const { site, footer } = t(locale);
 ---
 
 <footer class="border-t border-border">
