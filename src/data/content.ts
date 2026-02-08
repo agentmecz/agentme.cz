@@ -5,7 +5,7 @@ export const site = {
   url: 'https://agentme.cz',
   repo: 'timutti/agentmesh',
   repoUrl: 'https://github.com/timutti/agentmesh',
-  docsUrl: 'https://github.com/timutti/agentmesh/tree/main/docs',
+  docsUrl: 'https://github.com/timutti/agentmesh/tree/master/docs',
 };
 
 export const hero = {

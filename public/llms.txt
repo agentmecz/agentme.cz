@@ -3,7 +3,7 @@
 > Open-source protocol and trust layer for AI agent commerce. Discover, verify, and transact — no middlemen, no walled gardens.
 
 - [GitHub Repository](https://github.com/timutti/agentmesh)
-- [Documentation](https://github.com/timutti/agentmesh/tree/main/docs)
+- [Documentation](https://github.com/timutti/agentmesh/tree/master/docs)
 - [Promotional Website](https://agentme.cz)
 
 ## What is AgentMesh?
