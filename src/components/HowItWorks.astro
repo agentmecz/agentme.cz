@@ -2,6 +2,34 @@
 import SectionWrapper from './ui/SectionWrapper.astro';
 import FadeIn from './ui/FadeIn.astro';
 import { howItWorks } from '../data/content';
+
+function highlightLine(line: string): string {
+  let html = line
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+  if (html.trimStart().startsWith('//')) {
+    return `<span class="syn-comment">${html}</span>`;
+  }
+
+  html = html.replace(
+    /('[^']*'|"[^"]*")/g,
+    '<span class="syn-string">$1</span>'
+  );
+
+  html = html.replace(
+    /\b(import|from|export|const|let|var|async|await|new|return|function|if|else)\b/g,
+    '<span class="syn-keyword">$1</span>'
+  );
+
+  html = html.replace(
+    /(?<!["\w])(\d+\.?\d*)(?!["\w])/g,
+    '<span class="syn-number">$1</span>'
+  );
+
+  return html;
+}
 ---
 
 <SectionWrapper id="how-it-works">
@@ -28,7 +56,9 @@ import { howItWorks } from '../data/content';
             </div>
           </div>
           <div class="ml-0 md:ml-15 overflow-x-auto rounded-lg bg-bg-primary border border-border p-4">
-            <pre class="text-sm leading-relaxed"><code class="font-mono text-text-muted">{step.code}</code></pre>
+            <pre class="text-sm leading-relaxed"><code class="font-mono text-text-secondary">{step.code.split('\n').map((line: string) => (
+              <span class="code-line block" set:html={highlightLine(line) || '\u00A0'} />
+            ))}</code></pre>
           </div>
         </div>
       </FadeIn>

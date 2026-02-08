@@ -1,0 +1,65 @@
+---
+import { site } from '../data/content';
+
+const links = [
+  { label: 'Protocol', href: '#protocol' },
+  { label: 'Trust', href: '#trust' },
+  { label: 'Payments', href: '#payments' },
+  { label: 'FAQ', href: '#faq' },
+];
+---
+
+<nav
+  class="site-nav fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+  aria-label="Main"
+>
+  <div class="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-4">
+    <a href="#" class="text-sm font-semibold text-text-primary transition-colors hover:text-accent-cyan">
+      AgentMesh
+    </a>
+
+    <div class="hidden items-center gap-6 sm:flex">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="text-sm text-text-muted transition-colors hover:text-text-secondary"
+        >
+          {link.label}
+        </a>
+      ))}
+      <a
+        href={site.repoUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-sm text-text-muted transition-colors hover:text-text-secondary"
+      >
+        GitHub
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  function initNav() {
+    const nav = document.querySelector<HTMLElement>('.site-nav');
+    if (!nav) return;
+
+    let lastY = 0;
+
+    function onScroll() {
+      const y = window.scrollY;
+      if (y > 80) {
+        nav!.classList.add('nav-scrolled');
+      } else {
+        nav!.classList.remove('nav-scrolled');
+      }
+      lastY = y;
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  initNav();
+  document.addEventListener('astro:page-load', initNav);
+</script>

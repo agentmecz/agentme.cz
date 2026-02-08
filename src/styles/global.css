@@ -54,6 +54,29 @@ body {
   color: var(--color-text-primary);
 }
 
+/* Nav */
+.nav-scrolled {
+  background-color: rgba(8, 9, 10, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Syntax highlighting */
+.syn-keyword {
+  color: var(--color-accent-purple);
+}
+.syn-string {
+  color: #4ADE80;
+}
+.syn-comment {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+.syn-number {
+  color: #FBBF24;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

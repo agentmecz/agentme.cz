@@ -29,7 +29,7 @@ const sizeClasses = {
   </svg>
   <span>Star on GitHub</span>
   <span
-    class="github-star-count ml-1 rounded-md bg-white/20 px-2 py-0.5 text-xs font-semibold tabular-nums"
+    class="github-star-count ml-1 hidden rounded-md bg-white/20 px-2 py-0.5 text-xs font-semibold tabular-nums"
     data-repo={site.repo}
   ></span>
 </a>
@@ -47,7 +47,7 @@ const sizeClasses = {
       if (cached) {
         const { count, ts } = JSON.parse(cached);
         if (Date.now() - ts < 300_000) {
-          els.forEach((el) => (el.textContent = formatCount(count)));
+          showCount(els, count);
           return;
         }
       }
@@ -60,10 +60,18 @@ const sizeClasses = {
       const data = await res.json();
       const count = data.stargazers_count;
       sessionStorage.setItem(`gh-stars-${repo}`, JSON.stringify({ count, ts: Date.now() }));
-      els.forEach((el) => (el.textContent = formatCount(count)));
+      showCount(els, count);
     } catch {
       // Graceful degradation — button works without count
     }
+  }
+
+  function showCount(els: NodeListOf<HTMLElement>, count: number) {
+    if (count <= 0) return;
+    els.forEach((el) => {
+      el.textContent = formatCount(count);
+      el.classList.remove('hidden');
+    });
   }
 
   function formatCount(n: number): string {
