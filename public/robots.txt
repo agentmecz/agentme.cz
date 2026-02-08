@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Sitemap: https://agentme.cz/sitemap-index.xml
+
+# AI Crawlers — welcome
+# See llms.txt for structured content optimized for LLMs
+# https://agentme.cz/llms.txt

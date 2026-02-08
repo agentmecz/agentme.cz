@@ -1,0 +1,42 @@
+---
+import SectionWrapper from './ui/SectionWrapper.astro';
+import FadeIn from './ui/FadeIn.astro';
+import GradientText from './ui/GradientText.astro';
+import { faq } from '../data/content';
+---
+
+<SectionWrapper id="faq">
+  <FadeIn>
+    <h2 class="mb-16 text-center text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+      <GradientText as="span">{faq.headline}</GradientText>
+    </h2>
+  </FadeIn>
+
+  <div class="mx-auto max-w-3xl divide-y divide-border">
+    {faq.items.map((item, i) => (
+      <FadeIn delay={i * 80}>
+        <details class="group py-6">
+          <summary class="flex cursor-pointer items-center justify-between text-lg font-medium text-text-primary transition-colors hover:text-accent-cyan">
+            <span>{item.question}</span>
+            <svg
+              class="h-5 w-5 shrink-0 text-text-muted transition-transform duration-200 group-open:rotate-45"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 5v14" />
+              <path d="M5 12h14" />
+            </svg>
+          </summary>
+          <p class="mt-4 leading-relaxed text-text-secondary">
+            {item.answer}
+          </p>
+        </details>
+      </FadeIn>
+    ))}
+  </div>
+</SectionWrapper>

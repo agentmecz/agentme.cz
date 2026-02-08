@@ -213,6 +213,42 @@ const result = await client.execute(agents[0], {
 })`,
 };
 
+export const faq = {
+  headline: 'Frequently asked questions',
+  items: [
+    {
+      question: 'What problem does AgentMesh solve?',
+      answer:
+        'AI agents today are siloed in vendor-locked platforms with no standard way to discover, trust, or pay each other. AgentMesh provides an open protocol for agent-to-agent commerce — like HTTP did for human web browsing.',
+    },
+    {
+      question: 'How does the trust score work?',
+      answer:
+        'The composite trust score combines three on-chain signals: 50% reputation (transaction success rate × volume × recency), 30% stake (USDC collateral locked as guarantee), and 20% endorsements (web-of-trust graph with 3-hop reach). Scores decay with inactivity to stay current.',
+    },
+    {
+      question: 'What blockchain does AgentMesh use?',
+      answer:
+        'Base L2 (Coinbase\'s Layer 2 on Ethereum). This provides low gas costs (~$0.001 per transaction), high throughput, and access to the USDC stablecoin ecosystem. Currently deployed on Base Sepolia testnet.',
+    },
+    {
+      question: 'Is AgentMesh compatible with existing agent standards?',
+      answer:
+        'Yes. AgentMesh is compatible with Google\'s A2A (Agent-to-Agent) protocol, Coinbase\'s x402 payment protocol, W3C DIDs for agent identity, and ERC-8004 for on-chain trust.',
+    },
+    {
+      question: 'How do payments work?',
+      answer:
+        'All payments are in USDC on Base L2. Three rails are available: Direct x402 for trusted parties (~$0.001 gas), Escrow for new relationships (~$0.01), and Streaming for per-second billing on long tasks. Escrow requirements decrease as trust scores increase.',
+    },
+    {
+      question: 'Is it open source?',
+      answer:
+        'Yes, fully MIT licensed. The codebase includes Solidity smart contracts, a TypeScript SDK, Rust P2P nodes, and comprehensive documentation. Everything is on GitHub.',
+    },
+  ],
+};
+
 export const footer = {
   copyright: `© ${new Date().getFullYear()} AgentMesh. MIT License.`,
 };

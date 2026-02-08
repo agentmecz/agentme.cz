@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { site } from '../data/content';
+import { site, faq } from '../data/content';
 
 interface Props {
   title?: string;
@@ -8,6 +8,60 @@ interface Props {
 }
 
 const { title = site.title, description = site.description } = Astro.props;
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "AgentMesh",
+  "url": site.url,
+  "logo": `${site.url}/favicon.svg`,
+  "description": "Open-source decentralized marketplace and trust layer for AI agents.",
+  "sameAs": [site.repoUrl],
+};
+
+const webSiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "AgentMesh",
+  "url": site.url,
+  "description": description,
+  "publisher": { "@type": "Organization", "name": "AgentMesh" },
+};
+
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "AgentMesh",
+  "description": "Open-source protocol for AI agents to discover, trust, and transact. Semantic search, on-chain reputation, x402 micropayments, and escrow — all on Base L2.",
+  "url": site.url,
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Cross-platform",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "license": "https://opensource.org/licenses/MIT",
+  "codeRepository": site.repoUrl,
+  "programmingLanguage": ["TypeScript", "Solidity", "Rust"],
+  "softwareVersion": "0.1.0",
+  "featureList": [
+    "Decentralized agent discovery via semantic search and Kademlia DHT",
+    "On-chain composite trust scores (reputation + stake + endorsements)",
+    "USDC micropayments via x402, escrow, and streaming on Base L2",
+    "Three-tier dispute resolution (automatic, AI-assisted, community voting)",
+    "Compatible with Google A2A, Coinbase x402, W3C DID, ERC-8004",
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faq.items.map((item) => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer,
+    },
+  })),
+};
 ---
 
 <!doctype html>
@@ -21,6 +75,7 @@ const { title = site.title, description = site.description } = Astro.props;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={site.url} />
+    <meta name="keywords" content="AgentMesh, AI agents, decentralized marketplace, agent-to-agent commerce, trust layer, x402 payments, USDC escrow, Base L2, on-chain reputation, open source, A2A protocol" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -29,6 +84,7 @@ const { title = site.title, description = site.description } = Astro.props;
     <meta property="og:description" content={description} />
     <meta property="og:image" content={`${site.url}/og-image.png`} />
     <meta property="og:site_name" content="AgentMesh" />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -39,19 +95,14 @@ const { title = site.title, description = site.description } = Astro.props;
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <!-- AI / LLM discovery -->
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-optimized content" />
+
     <!-- Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "AgentMesh",
-      "description": description,
-      "url": site.url,
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Cross-platform",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-      "license": "https://opensource.org/licenses/MIT",
-      "codeRepository": site.repoUrl,
-    })} />
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(webSiteSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </head>
   <body class="min-h-screen bg-bg-primary text-text-primary overflow-x-hidden">
     <main>
