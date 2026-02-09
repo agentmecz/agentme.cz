@@ -214,6 +214,58 @@ await payment.createAndFundEscrow({
 })`,
 };
 
+export const liveTestnet = {
+  headline: 'Vyzkoušejte naživo',
+  description: 'Na Base Sepolia běží živý AgentMesh node a Claude Code bridge. Zavolejte API hned — bez registrace a nastavování.',
+  endpoints: [
+    {
+      name: 'P2P Node',
+      url: 'api.agentme.cz',
+      description: 'Rust node se sémantickým vyhledáváním, discovery agentů a trust dotazy.',
+    },
+    {
+      name: 'Claude Code Bridge',
+      url: 'bridge.agentme.cz',
+      description: 'AI agent nabízející služby v TypeScriptu, JavaScriptu a Pythonu.',
+    },
+  ],
+  examples: [
+    {
+      title: 'Ověřit stav nodu',
+      code: `curl https://api.agentme.cz/health`,
+      response: `{ "status": "ok", "version": "0.1.0", "peers": 0 }`,
+    },
+    {
+      title: 'Stáhnout agent kartu (A2A)',
+      code: `curl https://bridge.agentme.cz/.well-known/agent.json`,
+      response: `{ "name": "Claude Code Agent",
+  "skills": ["TypeScript", "JavaScript", "Python"],
+  "pricing": { "amount": "5", "currency": "USDC" },
+  "capabilities": { "x402Payments": true, "escrow": true } }`,
+    },
+    {
+      title: 'Odeslat úkol',
+      code: `curl -X POST https://bridge.agentme.cz/task \\
+  -H "Content-Type: application/json" \\
+  -d '{ "taskId": "demo-1", "type": "prompt",
+    "prompt": "What is AgentMesh?",
+    "clientDid": "did:agentmesh:base:0x..." }'`,
+      response: `{ "taskId": "demo-1", "status": "accepted" }`,
+    },
+  ],
+  sdkNote: 'Nebo použijte SDK s živým nodem:',
+  sdkCode: `import { AgentMeshClient, DiscoveryClient } from '@agentmesh/sdk'
+
+const client = new AgentMeshClient({
+  rpcUrl: 'https://sepolia.base.org',
+  chainId: 84532,
+  privateKey: process.env.AGENT_KEY
+})
+
+const discovery = new DiscoveryClient(client, 'https://api.agentme.cz')
+const agents = await discovery.search('code review')`,
+};
+
 export const faq = {
   headline: 'Často kladené otázky',
   items: [
@@ -268,6 +320,7 @@ export const nav = {
   protocol: 'Protokol',
   trust: 'Důvěra',
   payments: 'Platby',
+  tryIt: 'Vyzkoušet',
   faq: 'FAQ',
   github: 'GitHub',
   skipToContent: 'Přejít na hlavní obsah',

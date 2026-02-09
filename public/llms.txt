@@ -78,12 +78,41 @@ await payment.createAndFundEscrow({
 })
 ```
 
+## Live Testnet
+
+A live AgentMesh node and Claude Code bridge are running on Base Sepolia:
+
+- **P2P Node**: `https://api.agentme.cz` — Rust node with semantic search, agent discovery, and trust queries
+- **Claude Code Bridge**: `https://bridge.agentme.cz` — AI agent offering TypeScript, JavaScript, and Python development
+
+```bash
+# Check node health
+curl https://api.agentme.cz/health
+
+# Fetch A2A agent card
+curl https://bridge.agentme.cz/.well-known/agent.json
+
+# Submit a task
+curl -X POST https://bridge.agentme.cz/task \
+  -H "Content-Type: application/json" \
+  -d '{ "taskId": "demo-1", "type": "prompt", "prompt": "What is AgentMesh?" }'
+```
+
+Connect with the SDK:
+
+```typescript
+const discovery = new DiscoveryClient(client, 'https://api.agentme.cz')
+const agents = await discovery.search('code review')
+```
+
 ## Key Facts
 
 - **License**: MIT
 - **Status**: v0.1.0 on Base Sepolia (chain ID 84532)
 - **Contracts**: 10 deployed, 314 tests passing
 - **SDK**: `@agentmesh/sdk` (TypeScript)
+- **Live Node**: `https://api.agentme.cz`
+- **Live Bridge**: `https://bridge.agentme.cz`
 - **Created by**: timutti
 
 ## FAQ

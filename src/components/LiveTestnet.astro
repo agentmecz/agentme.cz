@@ -1,0 +1,95 @@
+---
+import SectionWrapper from './ui/SectionWrapper.astro';
+import FadeIn from './ui/FadeIn.astro';
+import CodeSnippet from './CodeSnippet.astro';
+import { t, type Locale } from '../data/i18n';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const { liveTestnet } = t(locale);
+
+function highlightLine(line: string): string {
+  let html = line
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+  if (html.trimStart().startsWith('//')) {
+    return `<span class="syn-comment">${html}</span>`;
+  }
+
+  html = html.replace(
+    /('[^']*'|"[^"]*")/g,
+    '<span class="syn-string">$1</span>'
+  );
+
+  html = html.replace(
+    /\b(curl|POST)\b/g,
+    '<span class="syn-keyword">$1</span>'
+  );
+
+  return html;
+}
+---
+
+<SectionWrapper id="live-testnet">
+  <FadeIn>
+    <h2 class="mb-4 text-center text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+      {liveTestnet.headline}
+    </h2>
+    <p class="mb-12 text-center text-text-secondary max-w-2xl mx-auto">
+      {liveTestnet.description}
+    </p>
+  </FadeIn>
+
+  <!-- Endpoint badges -->
+  <FadeIn delay={80}>
+    <div class="flex flex-wrap justify-center gap-4 mb-12">
+      {liveTestnet.endpoints.map((ep) => (
+        <a
+          href={`https://${ep.url}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center gap-3 rounded-xl border border-border bg-bg-card/30 px-5 py-4 transition-all duration-300 hover:border-accent-cyan/40 hover:bg-bg-card/60"
+        >
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+            <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500" />
+          </span>
+          <div>
+            <span class="block text-sm font-semibold text-text-primary">{ep.name}</span>
+            <span class="block text-xs text-text-muted">{ep.url}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </FadeIn>
+
+  <!-- Curl examples -->
+  <div class="space-y-6 mx-auto max-w-3xl mb-12">
+    {liveTestnet.examples.map((example, i) => (
+      <FadeIn delay={150 + i * 100}>
+        <div class="rounded-xl border border-border bg-bg-card/30 overflow-hidden">
+          <div class="flex items-center justify-between border-b border-border px-4 py-2.5">
+            <span class="text-xs font-medium text-text-secondary">{example.title}</span>
+            <span class="text-[10px] font-mono text-text-muted">bash</span>
+          </div>
+          <div class="code-snippet">
+            <pre class="overflow-x-auto p-4" tabindex="0" role="region" aria-label={example.title}><code class="block font-mono text-sm leading-relaxed text-text-secondary">{example.code.split('\n').map((line: string) => (
+              <span class="code-line block opacity-0" set:html={highlightLine(line) || '\u00A0'} />
+            ))}</code></pre>
+          </div>
+          <div class="border-t border-border/50 bg-bg-primary/50 px-4 py-3">
+            <pre class="overflow-x-auto"><code class="font-mono text-xs leading-relaxed text-accent-cyan/70">{example.response}</code></pre>
+          </div>
+        </div>
+      </FadeIn>
+    ))}
+  </div>
+
+  <!-- SDK note -->
+  <FadeIn delay={500}>
+    <p class="text-center text-sm text-text-secondary mb-6">{liveTestnet.sdkNote}</p>
+    <CodeSnippet code={liveTestnet.sdkCode} filename="connect.ts" />
+  </FadeIn>
+</SectionWrapper>
