@@ -2,10 +2,10 @@
 
 ## Project Overview
 
-Promotional one-page landing site for **AgentMesh** — a decentralized marketplace and trust layer for AI agents. The goal is to convert developer visitors into GitHub stars and documentation readers.
+Promotional one-page landing site for **AgentMe** — a decentralized marketplace and trust layer for AI agents. The goal is to convert developer visitors into GitHub stars and documentation readers.
 
 - **URL:** https://agentme.cz
-- **Repo:** https://github.com/timutti/agentmesh (the product being promoted)
+- **Repo:** https://github.com/agentmecz/agentme (the product being promoted)
 - **Language of the site:** English
 - **Type:** Static one-pager, no backend, no auth
 
@@ -92,9 +92,9 @@ Accents:      --color-accent-cyan: #00D4FF   --color-accent-purple: #7B61FF
 - **Glow effects** — subtle radial gradients, box-shadow on hover
 - **Generous spacing** — 120-160px padding between sections
 
-## Content Source: AgentMesh
+## Content Source: AgentMe
 
-The product being promoted lives at `/home/lada/projects/agentmesh` (GitHub: `timutti/agentmesh`). Key facts:
+The product being promoted lives at `/home/lada/projects/agentme` (GitHub: `agentmecz/agentme`). Key facts:
 
 - **What:** Decentralized marketplace & trust layer for AI agents
 - **Tagline:** "The HTTP of agent-to-agent commerce"
@@ -127,7 +127,7 @@ The product being promoted lives at `/home/lada/projects/agentmesh` (GitHub: `ti
 
 ### Done
 - [x] Astro 5 + Tailwind v4 + anime.js v4 scaffolding
-- [x] All 9 sections implemented with real AgentMesh content
+- [x] All 9 sections implemented with real AgentMe content
 - [x] Hero canvas animation, scroll fade-ins, trust score countUp
 - [x] GitHub star button with live API count
 - [x] SEO meta tags, OG tags, JSON-LD structured data

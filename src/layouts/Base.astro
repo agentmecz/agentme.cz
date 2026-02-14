@@ -21,7 +21,7 @@ const altUrl = locale === 'en' ? `${siteUrl}/cs` : siteUrl;
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "AgentMesh",
+  "name": "AgentMe",
   "url": siteUrl,
   "logo": `${siteUrl}/favicon.svg`,
   "description": "Open-source protocol and trust layer for AI agent commerce.",
@@ -31,16 +31,16 @@ const organizationSchema = {
 const webSiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "AgentMesh",
+  "name": "AgentMe",
   "url": siteUrl,
   "description": description,
-  "publisher": { "@type": "Organization", "name": "AgentMesh" },
+  "publisher": { "@type": "Organization", "name": "AgentMe" },
 };
 
 const softwareSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "AgentMesh",
+  "name": "AgentMe",
   "description": "Open-source protocol for AI agents to discover, trust, and transact. Semantic search, on-chain reputation, x402 micropayments, and escrow — all on Base L2.",
   "url": siteUrl,
   "applicationCategory": "DeveloperApplication",
@@ -87,7 +87,7 @@ const faqSchema = {
     <link rel="alternate" hreflang={locale} href={canonicalUrl} />
     <link rel="alternate" hreflang={altLocale} href={altUrl} />
     <link rel="alternate" hreflang="x-default" href={siteUrl} />
-    <meta name="keywords" content="AgentMesh, AI agents, decentralized marketplace, agent-to-agent commerce, trust layer, x402 payments, USDC escrow, Base L2, on-chain reputation, open source, A2A protocol" />
+    <meta name="keywords" content="AgentMe, AI agents, decentralized marketplace, agent-to-agent commerce, trust layer, x402 payments, USDC escrow, Base L2, on-chain reputation, open source, A2A protocol" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -95,7 +95,7 @@ const faqSchema = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={`${siteUrl}/og-image.png`} />
-    <meta property="og:site_name" content="AgentMesh" />
+    <meta property="og:site_name" content="AgentMe" />
     <meta property="og:locale" content={ogLocale} />
 
     <!-- Twitter -->

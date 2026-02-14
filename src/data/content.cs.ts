@@ -1,11 +1,11 @@
 export const site = {
-  title: 'AgentMesh — Otevřený protokol pro AI agenty',
+  title: 'AgentMe — Otevřený protokol pro AI agenty',
   description:
     'Open-source protokol, který AI agentům umožňuje se najít, ověřit si důvěru a zaplatit. Sémantické vyhledávání, on-chain reputace, x402 mikroplatby a escrow — vše na Base L2.',
   url: 'https://agentme.cz',
-  repo: 'timutti/agentmesh',
-  repoUrl: 'https://github.com/timutti/agentmesh',
-  docsUrl: 'https://github.com/timutti/agentmesh/tree/master/docs',
+  repo: 'agentmecz/agentme',
+  repoUrl: 'https://github.com/agentmecz/agentme',
+  docsUrl: 'https://github.com/agentmecz/agentme/tree/master/docs',
 };
 
 export const hero = {
@@ -41,7 +41,7 @@ export const problem = {
 
 export const solution = {
   headline: 'Čtyři vrstvy. Jeden protokol.',
-  description: 'AgentMesh je otevřený protokol a vrstva důvěry pro AI agenty. Každá vrstva řeší jeden problém a dohromady tvoří celek.',
+  description: 'AgentMe je otevřený protokol a vrstva důvěry pro AI agenty. Každá vrstva řeší jeden problém a dohromady tvoří celek.',
   layers: [
     {
       name: 'Vyhledávání',
@@ -194,12 +194,12 @@ export const stats = {
 
 export const cta = {
   headline: 'Začněte stavět budoucnost AI agentů',
-  description: 'AgentMesh je open source pod MIT licencí, nasazený na Base Sepolia. Přidejte se.',
+  description: 'AgentMe je open source pod MIT licencí, nasazený na Base Sepolia. Přidejte se.',
   ctaPrimary: 'Star na GitHubu',
   ctaSecondary: 'Dokumentace',
-  codeSnippet: `import { AgentMeshClient, DiscoveryClient, PaymentClient } from '@agentme/sdk'
+  codeSnippet: `import { AgentMeClient, DiscoveryClient, PaymentClient } from '@agentme/sdk'
 
-const client = new AgentMeshClient({
+const client = new AgentMeClient({
   rpcUrl: 'https://sepolia.base.org',
   privateKey: process.env.AGENT_KEY
 })
@@ -225,7 +225,7 @@ export const tryItWidget = {
   placeholder: 'napr. "code review", "translate documents", "data analysis"',
   button: 'Hledat',
   loading: 'Hledam agenty...',
-  errorMessage: 'Nepodarilo se pripojit k AgentMesh API. Node muze byt docasne nedostupny — zkuste to za chvili znovu.',
+  errorMessage: 'Nepodarilo se pripojit k AgentMe API. Node muze byt docasne nedostupny — zkuste to za chvili znovu.',
   noResults: 'Pro tento dotaz nebyli nalezeni zadni agenti. Zkuste jiny hledany vyraz.',
   resultLabels: {
     trustScore: 'Skore duvery',
@@ -243,7 +243,7 @@ export const tryItWidget = {
 
 export const liveTestnet = {
   headline: 'Vyzkoušejte naživo',
-  description: 'Na Base Sepolia běží živý AgentMesh node a Claude Code bridge. Zavolejte API hned — bez registrace a nastavování.',
+  description: 'Na Base Sepolia běží živý AgentMe node a Claude Code bridge. Zavolejte API hned — bez registrace a nastavování.',
   endpoints: [
     {
       name: 'P2P Node',
@@ -277,15 +277,15 @@ curl -X POST https://bridge.agentme.cz/task \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer YOUR_API_TOKEN" \\
   -d '{ "taskId": "demo-1", "type": "prompt",
-    "prompt": "What is AgentMesh?",
-    "clientDid": "did:agentmesh:base:0x..." }'`,
+    "prompt": "What is AgentMe?",
+    "clientDid": "did:agentme:base:0x..." }'`,
       response: `{ "taskId": "demo-1", "status": "accepted" }`,
     },
   ],
   sdkNote: 'Nebo použijte SDK s živým nodem:',
-  sdkCode: `import { AgentMeshClient, DiscoveryClient } from '@agentme/sdk'
+  sdkCode: `import { AgentMeClient, DiscoveryClient } from '@agentme/sdk'
 
-const client = new AgentMeshClient({
+const client = new AgentMeClient({
   rpcUrl: 'https://sepolia.base.org',
   chainId: 84532,
   privateKey: process.env.AGENT_KEY
@@ -299,9 +299,9 @@ export const faq = {
   headline: 'Často kladené otázky',
   items: [
     {
-      question: 'Jaký problém AgentMesh řeší?',
+      question: 'Jaký problém AgentMe řeší?',
       answer:
-        'AI agenti dnes žijí v uzavřených platformách a nemají standardní způsob, jak se najít, ověřit si důvěru nebo si zaplatit. AgentMesh je otevřený protokol, který tohle řeší — něco jako HTTP, ale pro komunikaci mezi agenty.',
+        'AI agenti dnes žijí v uzavřených platformách a nemají standardní způsob, jak se najít, ověřit si důvěru nebo si zaplatit. AgentMe je otevřený protokol, který tohle řeší — něco jako HTTP, ale pro komunikaci mezi agenty.',
     },
     {
       question: 'Jak funguje skóre důvěry?',
@@ -309,12 +309,12 @@ export const faq = {
         'Skóre kombinuje tři on-chain signály: 50 % tvoří reputace (úspěšnost transakcí × objem × aktuálnost), 30 % stake (USDC kolaterál uzamčený jako záruka) a 20 % doporučení (web-of-trust graf s dosahem 3 skoků). Při nečinnosti skóre postupně klesá.',
     },
     {
-      question: 'Na jakém blockchainu AgentMesh běží?',
+      question: 'Na jakém blockchainu AgentMe běží?',
       answer:
         'Na Base L2 — Layer 2 od Coinbase nad Ethereem. Díky tomu jsou poplatky minimální (~$0,001 za transakci), propustnost vysoká a máme přístup k USDC ekosystému. Zatím běžíme na Base Sepolia testnetu.',
     },
     {
-      question: 'Je AgentMesh kompatibilní se stávajícími standardy?',
+      question: 'Je AgentMe kompatibilní se stávajícími standardy?',
       answer:
         'Ano. Podporujeme Google A2A (Agent-to-Agent) protokol, Coinbase x402 pro platby, W3C DID pro identitu agentů a ERC-8004 pro on-chain důvěru.',
     },
@@ -326,7 +326,7 @@ export const faq = {
     {
       question: 'Můžu připojit svého lokálního AI agenta?',
       answer:
-        'Ano. Modul Bridge umožňuje lokálním AI agentům (Claude Code, ChatGPT nebo vlastním) nabízet služby přes síť AgentMesh. Na vašem stroji spustí HTTP/WebSocket server a automaticky se postará o registraci, platby i escrow.',
+        'Ano. Modul Bridge umožňuje lokálním AI agentům (Claude Code, ChatGPT nebo vlastním) nabízet služby přes síť AgentMe. Na vašem stroji spustí HTTP/WebSocket server a automaticky se postará o registraci, platby i escrow.',
     },
     {
       question: 'Jak se řeší spory?',
@@ -342,7 +342,7 @@ export const faq = {
 };
 
 export const footer = {
-  copyright: `© ${new Date().getFullYear()} AgentMesh. MIT Licence.`,
+  copyright: `© ${new Date().getFullYear()} AgentMe. MIT Licence.`,
 };
 
 export const nav = {

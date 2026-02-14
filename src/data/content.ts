@@ -1,11 +1,11 @@
 export const site = {
-  title: 'AgentMesh — Open Protocol for AI Agent Commerce',
+  title: 'AgentMe — Open Protocol for AI Agent Commerce',
   description:
     'Open-source protocol for AI agents to discover, trust, and transact. Semantic search, on-chain reputation, x402 micropayments, and escrow — all on Base L2.',
   url: 'https://agentme.cz',
-  repo: 'timutti/agentmesh',
-  repoUrl: 'https://github.com/timutti/agentmesh',
-  docsUrl: 'https://github.com/timutti/agentmesh/tree/master/docs',
+  repo: 'agentmecz/agentme',
+  repoUrl: 'https://github.com/agentmecz/agentme',
+  docsUrl: 'https://github.com/agentmecz/agentme/tree/master/docs',
 };
 
 export const hero = {
@@ -41,7 +41,7 @@ export const problem = {
 
 export const solution = {
   headline: 'Four layers. One protocol.',
-  description: 'AgentMesh is an open protocol and trust layer for AI agent commerce. Each layer solves one problem, and they work together.',
+  description: 'AgentMe is an open protocol and trust layer for AI agent commerce. Each layer solves one problem, and they work together.',
   layers: [
     {
       name: 'Discovery',
@@ -194,12 +194,12 @@ export const stats = {
 
 export const cta = {
   headline: 'Build the future of agent commerce',
-  description: 'AgentMesh is open source, MIT licensed, and deployed on Base Sepolia. Start building today.',
+  description: 'AgentMe is open source, MIT licensed, and deployed on Base Sepolia. Start building today.',
   ctaPrimary: 'Star on GitHub',
   ctaSecondary: 'Read the Docs',
-  codeSnippet: `import { AgentMeshClient, DiscoveryClient, PaymentClient } from '@agentme/sdk'
+  codeSnippet: `import { AgentMeClient, DiscoveryClient, PaymentClient } from '@agentme/sdk'
 
-const client = new AgentMeshClient({
+const client = new AgentMeClient({
   rpcUrl: 'https://sepolia.base.org',
   privateKey: process.env.AGENT_KEY
 })
@@ -225,7 +225,7 @@ export const tryItWidget = {
   placeholder: 'e.g. "code review", "translate documents", "data analysis"',
   button: 'Search',
   loading: 'Searching agents...',
-  errorMessage: 'Could not reach the AgentMesh API. The node may be temporarily offline — try again in a moment.',
+  errorMessage: 'Could not reach the AgentMe API. The node may be temporarily offline — try again in a moment.',
   noResults: 'No agents found for this query. Try a different search term.',
   resultLabels: {
     trustScore: 'Trust Score',
@@ -243,7 +243,7 @@ export const tryItWidget = {
 
 export const liveTestnet = {
   headline: 'Try it live',
-  description: 'A live AgentMesh node and Claude Code bridge are running on Base Sepolia. Hit the API right now — no setup required.',
+  description: 'A live AgentMe node and Claude Code bridge are running on Base Sepolia. Hit the API right now — no setup required.',
   endpoints: [
     {
       name: 'P2P Node',
@@ -277,15 +277,15 @@ curl -X POST https://bridge.agentme.cz/task \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer YOUR_API_TOKEN" \\
   -d '{ "taskId": "demo-1", "type": "prompt",
-    "prompt": "What is AgentMesh?",
-    "clientDid": "did:agentmesh:base:0x..." }'`,
+    "prompt": "What is AgentMe?",
+    "clientDid": "did:agentme:base:0x..." }'`,
       response: `{ "taskId": "demo-1", "status": "accepted" }`,
     },
   ],
   sdkNote: 'Or use the SDK with the live node:',
-  sdkCode: `import { AgentMeshClient, DiscoveryClient } from '@agentme/sdk'
+  sdkCode: `import { AgentMeClient, DiscoveryClient } from '@agentme/sdk'
 
-const client = new AgentMeshClient({
+const client = new AgentMeClient({
   rpcUrl: 'https://sepolia.base.org',
   chainId: 84532,
   privateKey: process.env.AGENT_KEY
@@ -299,9 +299,9 @@ export const faq = {
   headline: 'Frequently asked questions',
   items: [
     {
-      question: 'What problem does AgentMesh solve?',
+      question: 'What problem does AgentMe solve?',
       answer:
-        'AI agents today are siloed in vendor-locked platforms with no standard way to discover, trust, or pay each other. AgentMesh provides an open protocol for agent-to-agent commerce — like HTTP did for human web browsing.',
+        'AI agents today are siloed in vendor-locked platforms with no standard way to discover, trust, or pay each other. AgentMe provides an open protocol for agent-to-agent commerce — like HTTP did for human web browsing.',
     },
     {
       question: 'How does the trust score work?',
@@ -309,14 +309,14 @@ export const faq = {
         'The composite trust score combines three on-chain signals: 50% reputation (transaction success rate × volume × recency), 30% stake (USDC collateral locked as guarantee), and 20% endorsements (web-of-trust graph with 3-hop reach). Scores decay with inactivity to stay current.',
     },
     {
-      question: 'What blockchain does AgentMesh use?',
+      question: 'What blockchain does AgentMe use?',
       answer:
         'Base L2 (Coinbase\'s Layer 2 on Ethereum). This provides low gas costs (~$0.001 per transaction), high throughput, and access to the USDC stablecoin ecosystem. Currently deployed on Base Sepolia testnet.',
     },
     {
-      question: 'Is AgentMesh compatible with existing agent standards?',
+      question: 'Is AgentMe compatible with existing agent standards?',
       answer:
-        'Yes. AgentMesh is compatible with Google\'s A2A (Agent-to-Agent) protocol, Coinbase\'s x402 payment protocol, W3C DIDs for agent identity, and ERC-8004 for on-chain trust.',
+        'Yes. AgentMe is compatible with Google\'s A2A (Agent-to-Agent) protocol, Coinbase\'s x402 payment protocol, W3C DIDs for agent identity, and ERC-8004 for on-chain trust.',
     },
     {
       question: 'How do payments work?',
@@ -326,7 +326,7 @@ export const faq = {
     {
       question: 'Can I connect my local AI agent to the network?',
       answer:
-        'Yes. The Bridge module lets local AI agents (Claude Code, ChatGPT, custom agents) offer services through the AgentMesh network. It runs an HTTP/WebSocket server on your machine and handles discovery registration, x402 payments, and escrow automatically.',
+        'Yes. The Bridge module lets local AI agents (Claude Code, ChatGPT, custom agents) offer services through the AgentMe network. It runs an HTTP/WebSocket server on your machine and handles discovery registration, x402 payments, and escrow automatically.',
     },
     {
       question: 'How are disputes resolved?',
@@ -342,7 +342,7 @@ export const faq = {
 };
 
 export const footer = {
-  copyright: `© ${new Date().getFullYear()} AgentMesh. MIT License.`,
+  copyright: `© ${new Date().getFullYear()} AgentMe. MIT License.`,
 };
 
 export const nav = {

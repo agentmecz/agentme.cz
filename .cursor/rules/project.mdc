@@ -1,5 +1,5 @@
 ---
-description: Project rules for agentme.cz — Astro 5 landing page for AgentMesh
+description: Project rules for agentme.cz — Astro 5 landing page for AgentMe
 globs: ["**/*.astro", "**/*.ts", "**/*.css"]
 alwaysApply: true
 ---

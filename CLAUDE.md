@@ -29,13 +29,13 @@ npm run preview      # Preview build locally
 - `BRIEF.md` → original project brief (design vision, references)
 - `AGENTS.md` → full technical context for all AI agents
 
-## AgentMesh Reference
+## AgentMe Reference
 
-The product we're promoting: `timutti/agentmesh` (also at `/home/lada/projects/agentmesh`).
+The product we're promoting: `agentmecz/agentme` (also at `/home/lada/projects/agentme`).
 
 Key SDK API for code examples on the landing page:
 ```typescript
-import { AgentMeshClient, DiscoveryClient, TrustClient, PaymentClient } from '@agentme/sdk'
+import { AgentMeClient, DiscoveryClient, TrustClient, PaymentClient } from '@agentme/sdk'
 // client.discover(), trust.getTrustScore(), payment.createEscrow(), client.execute()
 ```
 

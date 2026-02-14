@@ -2,7 +2,7 @@
 
 ## Projekt
 
-Promo one-pager pro **AgentMesh** - decentralizovaný marketplace a trust layer pro AI agenty. Open-source projekt, který potřebuje nasbírat early adopters a GitHub stars.
+Promo one-pager pro **AgentMe** - decentralizovaný marketplace a trust layer pro AI agenty. Open-source projekt, který potřebuje nasbírat early adopters a GitHub stars.
 
 **URL:** agentme.cz
 **Typ:** One-page landing page
@@ -82,9 +82,9 @@ Příklady tónu:
   - Payments are manual and slow
 - Minimalistické ikony, fade-in on scroll
 
-### 3. Solution / What is AgentMesh
+### 3. Solution / What is AgentMe
 - **Headline:** Odpověď na problém
-- **Vizuál:** Schéma/diagram jak AgentMesh funguje - 4 vrstvy:
+- **Vizuál:** Schéma/diagram jak AgentMe funguje - 4 vrstvy:
   - Discovery (najít agenta)
   - Trust (ověřit důvěryhodnost)
   - Payment (zaplatit za službu)
@@ -119,9 +119,9 @@ Příklady tónu:
 - **CTA tlačítka:** "Star on GitHub" (velké) + "Read the Docs" + "Join Discord" (pokud existuje)
 - **Code snippet:** Ukázka SDK - jak jednoduché je začít (3-5 řádků kódu)
   ```typescript
-  import { AgentMesh } from '@agentme/sdk'
+  import { AgentMe } from '@agentme/sdk'
 
-  const mesh = new AgentMesh()
+  const mesh = new AgentMe()
   const agents = await mesh.discover({ capability: 'translation' })
   const result = await agents[0].execute({ text: 'Hello', to: 'es' })
   ```
@@ -143,7 +143,7 @@ Příklady tónu:
 ### Konkrétní animace
 1. **Hero network:** Kontinuální particle animace - nodes se pohybují, connections se tvoří/ruší
 2. **Section fade-in:** Staggered fade-in + translateY při scrollu (klasika, ale čistá)
-3. **Layer reveal:** 4 vrstvy AgentMesh se postupně odkrývají (stagger timeline)
+3. **Layer reveal:** 4 vrstvy AgentMe se postupně odkrývají (stagger timeline)
 4. **Trust score:** Animované progress bary a čísla (countUp efekt)
 5. **Code snippet:** Typing efekt na ukázku kódu
 6. **Gradient glow:** Subtle pulse na CTA tlačítkách a accent elementech
@@ -178,7 +178,7 @@ Příklady tónu:
 
 ## SEO & Meta
 
-- **Title:** "AgentMesh - Decentralized Marketplace for AI Agents"
+- **Title:** "AgentMe - Decentralized Marketplace for AI Agents"
 - **Description:** "Open-source infrastructure for AI agents to discover, trust, and transact. Built on Base L2 with libp2p networking."
 - **OG Image:** Branded social card s network vizuálem
 - **Structured data:** SoftwareApplication schema

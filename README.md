@@ -1,6 +1,6 @@
 # agentme.cz
 
-Promotional landing page for [AgentMesh](https://github.com/timutti/agentmesh) — the decentralized marketplace and trust layer for AI agents.
+Promotional landing page for [AgentMe](https://github.com/agentmecz/agentme) — the decentralized marketplace and trust layer for AI agents.
 
 **Live:** [agentme.cz](https://agentme.cz)
 

@@ -4,7 +4,7 @@ For full project context, see AGENTS.md in the repo root.
 
 ## Project
 
-Promotional one-page landing site for AgentMesh (decentralized AI agent marketplace). Static Astro 5 site with Tailwind CSS v4 and anime.js v4 animations.
+Promotional one-page landing site for AgentMe (decentralized AI agent marketplace). Static Astro 5 site with Tailwind CSS v4 and anime.js v4 animations.
 
 ## Stack & Commands
 

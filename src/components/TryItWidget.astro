@@ -152,9 +152,9 @@ const { tryItWidget } = t(locale);
       const card = agent.card || {};
       const trust = agent.trust || {};
       const capabilities = (card.capabilities || []).slice(0, 5);
-      const agentmesh = card['x-agentmesh'] || {};
+      const agentme = card['x-agentme'] || {};
 
-      const trustScore = (trust.score != null ? trust.score : (agentmesh.trust_score || 0));
+      const trustScore = (trust.score != null ? trust.score : (agentme.trust_score || 0));
       const reputation = trust.reputation || 0;
       const stakeScore = trust.stake_score || 0;
       const endorsementScore = trust.endorsement_score || 0;
