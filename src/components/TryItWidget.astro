@@ -1,0 +1,245 @@
+---
+import FadeIn from './ui/FadeIn.astro';
+import { t, type Locale } from '../data/i18n';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const { tryItWidget } = t(locale);
+---
+
+<FadeIn delay={350}>
+  <div class="mx-auto max-w-3xl mb-12">
+    <h3 class="mb-6 text-center text-xl font-semibold tracking-tight text-text-primary md:text-2xl">
+      {tryItWidget.heading}
+    </h3>
+
+    <!-- Search form -->
+    <div class="rounded-xl border border-border bg-bg-card/30 overflow-hidden">
+      <!-- Terminal-style header -->
+      <div class="flex items-center gap-2 border-b border-border px-4 py-2.5">
+        <span class="h-2.5 w-2.5 rounded-full bg-red-500/60"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-yellow-500/60"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-green-500/60"></span>
+        <span class="ml-2 text-xs font-mono text-text-muted">semantic-search</span>
+      </div>
+
+      <!-- Input row -->
+      <div class="flex items-center gap-3 px-4 py-4">
+        <span class="text-accent-cyan font-mono text-sm select-none shrink-0">&gt;</span>
+        <input
+          id="tryit-input"
+          type="text"
+          value="code review"
+          placeholder={tryItWidget.placeholder}
+          autocomplete="off"
+          spellcheck="false"
+          class="flex-1 bg-transparent font-mono text-sm text-text-primary placeholder:text-text-muted outline-none"
+        />
+        <button
+          id="tryit-button"
+          type="button"
+          class="shrink-0 rounded-lg border border-accent-cyan/30 bg-accent-cyan/10 px-4 py-2 font-mono text-xs font-medium text-accent-cyan transition-all duration-200 hover:bg-accent-cyan/20 hover:border-accent-cyan/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-cyan cursor-pointer"
+        >
+          {tryItWidget.button}
+        </button>
+      </div>
+
+      <!-- Loading state -->
+      <div id="tryit-loading" class="hidden border-t border-border/50 bg-bg-primary/50 px-4 py-6">
+        <div class="flex items-center justify-center gap-3">
+          <div class="tryit-spinner h-4 w-4 rounded-full border-2 border-accent-cyan/30 border-t-accent-cyan"></div>
+          <span class="text-sm text-text-muted font-mono">{tryItWidget.loading}</span>
+        </div>
+      </div>
+
+      <!-- Error state -->
+      <div id="tryit-error" class="hidden border-t border-border/50 bg-bg-primary/50 px-4 py-5">
+        <p class="text-sm text-red-400/80 text-center">{tryItWidget.errorMessage}</p>
+      </div>
+
+      <!-- No results state -->
+      <div id="tryit-empty" class="hidden border-t border-border/50 bg-bg-primary/50 px-4 py-5">
+        <p class="text-sm text-text-muted text-center">{tryItWidget.noResults}</p>
+      </div>
+
+      <!-- Results -->
+      <div id="tryit-results" class="hidden border-t border-border/50 bg-bg-primary/50">
+        <!-- Results injected here by JS -->
+      </div>
+    </div>
+  </div>
+</FadeIn>
+
+<style>
+  @keyframes tryit-spin {
+    to { transform: rotate(360deg); }
+  }
+  .tryit-spinner {
+    animation: tryit-spin 0.8s linear infinite;
+  }
+  .tryit-trust-bar {
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+</style>
+
+<script define:vars={{ labels: tryItWidget.resultLabels }}>
+  function initTryItWidget() {
+    const input = document.getElementById('tryit-input');
+    const button = document.getElementById('tryit-button');
+    const loadingEl = document.getElementById('tryit-loading');
+    const errorEl = document.getElementById('tryit-error');
+    const emptyEl = document.getElementById('tryit-empty');
+    const resultsEl = document.getElementById('tryit-results');
+
+    if (!input || !button || !loadingEl || !errorEl || !emptyEl || !resultsEl) return;
+
+    function hideAll() {
+      loadingEl.classList.add('hidden');
+      errorEl.classList.add('hidden');
+      emptyEl.classList.add('hidden');
+      resultsEl.classList.add('hidden');
+      resultsEl.innerHTML = '';
+    }
+
+    async function doSearch() {
+      const query = input.value.trim();
+      if (!query) return;
+
+      hideAll();
+      loadingEl.classList.remove('hidden');
+      button.disabled = true;
+      button.style.opacity = '0.5';
+
+      try {
+        const url = `https://api.agentme.cz/agents/semantic?q=${encodeURIComponent(query)}`;
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        hideAll();
+
+        if (!data || data.length === 0) {
+          emptyEl.classList.remove('hidden');
+          return;
+        }
+
+        resultsEl.classList.remove('hidden');
+        resultsEl.innerHTML = data.map(renderResult).join('');
+
+        // Animate trust bars after a small delay
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            resultsEl.querySelectorAll('.tryit-trust-bar').forEach((bar) => {
+              bar.style.width = bar.dataset.width + '%';
+            });
+          });
+        });
+
+      } catch (err) {
+        hideAll();
+        errorEl.classList.remove('hidden');
+      } finally {
+        button.disabled = false;
+        button.style.opacity = '1';
+      }
+    }
+
+    function renderResult(agent) {
+      const card = agent.card || {};
+      const trust = agent.trust || {};
+      const capabilities = (card.capabilities || []).slice(0, 5);
+      const agentmesh = card['x-agentmesh'] || {};
+
+      const trustScore = (trust.score != null ? trust.score : (agentmesh.trust_score || 0));
+      const reputation = trust.reputation || 0;
+      const stakeScore = trust.stake_score || 0;
+      const endorsementScore = trust.endorsement_score || 0;
+
+      const matchPct = Math.round((agent.score || 0) * 100);
+
+      const capsHtml = capabilities.map(cap =>
+        `<span class="inline-block rounded-md border border-border bg-bg-secondary px-2 py-0.5 text-[11px] font-mono text-text-secondary">${escapeHtml(cap.name || cap.id)}</span>`
+      ).join(' ');
+
+      const successCount = trust.successful_transactions || 0;
+      const failCount = trust.failed_transactions || 0;
+      const endorseCount = trust.endorsement_count || 0;
+
+      return `
+        <div class="px-4 py-5 first:pt-4 last:pb-5 [&:not(:last-child)]:border-b [&:not(:last-child)]:border-border/30">
+          <!-- Agent header -->
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="min-w-0">
+              <h4 class="text-base font-semibold text-text-primary truncate">${escapeHtml(card.name || agent.did)}</h4>
+              ${card.url ? `<a href="${escapeHtml(card.url)}" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-accent-cyan/70 hover:text-accent-cyan transition-colors">${escapeHtml(card.url)}</a>` : ''}
+            </div>
+            <div class="text-right shrink-0">
+              <div class="text-2xl font-bold tabular-nums text-accent-cyan">${trustScore.toFixed(2)}</div>
+              <div class="text-[10px] uppercase tracking-wider text-text-muted">${labels.trustScore}</div>
+            </div>
+          </div>
+
+          ${card.description ? `<p class="text-xs text-text-secondary mb-4 line-clamp-2">${escapeHtml(card.description)}</p>` : ''}
+
+          <!-- Capabilities -->
+          ${capabilities.length > 0 ? `
+          <div class="mb-4">
+            <div class="text-[10px] uppercase tracking-wider text-text-muted mb-1.5">${labels.capabilities}</div>
+            <div class="flex flex-wrap gap-1.5">${capsHtml}</div>
+          </div>
+          ` : ''}
+
+          <!-- Trust breakdown -->
+          <div class="rounded-lg border border-border/50 bg-bg-card/30 p-3">
+            <div class="grid grid-cols-3 gap-3 mb-3">
+              ${renderTrustBar(labels.reputation, reputation, 'from-accent-cyan to-cyan-400')}
+              ${renderTrustBar(labels.stake, stakeScore, 'from-accent-purple to-purple-400')}
+              ${renderTrustBar(labels.endorsements, endorsementScore, 'from-cyan-400 to-accent-purple')}
+            </div>
+            <div class="flex items-center justify-between text-[10px] text-text-muted pt-2 border-t border-border/30">
+              <span>${labels.matchScore}: ${matchPct}%</span>
+              <span>${successCount} ${labels.successful} / ${failCount} ${labels.failed} / ${endorseCount} ${labels.endorsers}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderTrustBar(label, value, gradientClasses) {
+      const pct = Math.round(value * 100);
+      return `
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-[10px] text-text-muted">${label}</span>
+            <span class="text-[11px] font-mono tabular-nums text-text-secondary">${value.toFixed(2)}</span>
+          </div>
+          <div class="h-1.5 overflow-hidden rounded-full bg-bg-secondary">
+            <div class="tryit-trust-bar h-full rounded-full bg-gradient-to-r ${gradientClasses}" data-width="${pct}" style="width: 0%"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function escapeHtml(str) {
+      const d = document.createElement('div');
+      d.textContent = str;
+      return d.innerHTML;
+    }
+
+    // Event listeners
+    button.addEventListener('click', doSearch);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        doSearch();
+      }
+    });
+  }
+
+  initTryItWidget();
+  document.addEventListener('astro:page-load', initTryItWidget);
+</script>

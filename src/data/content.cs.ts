@@ -175,7 +175,7 @@ export const techStack = {
     { name: 'Base L2', description: 'L2 od Coinbase — nízký gas, vysoká propustnost', category: 'infra' },
     { name: 'libp2p', description: 'P2P síť s Kademlia DHT', category: 'infra' },
     { name: 'USDC', description: 'Stablecoin platby — žádné volatilní tokeny', category: 'infra' },
-    { name: 'Solidity', description: '10 smart kontraktů, 314 testů prochází', category: 'language' },
+    { name: 'Solidity', description: '10 smart kontraktů, plně otestováno', category: 'language' },
     { name: 'TypeScript', description: 'Kompletní SDK — @agentme/sdk', category: 'language' },
     { name: 'Rust', description: 'Produkční P2P node s tokio + axum', category: 'language' },
     { name: 'A2A Protocol', description: 'Google Agent-to-Agent standard', category: 'standard' },
@@ -187,7 +187,7 @@ export const techStack = {
 
 export const stats = {
   contracts: 10,
-  tests: 314,
+  tests: 1297,
   chain: 'Base Sepolia',
   license: 'MIT',
 };
@@ -218,6 +218,27 @@ await payment.createAndFundEscrow({
   providerAddress: agents[0].address,
   amount: '10.00', taskHash, deadline
 })`,
+};
+
+export const tryItWidget = {
+  heading: 'Prohledejte sit',
+  placeholder: 'napr. "code review", "translate documents", "data analysis"',
+  button: 'Hledat',
+  loading: 'Hledam agenty...',
+  errorMessage: 'Nepodarilo se pripojit k AgentMesh API. Node muze byt docasne nedostupny — zkuste to za chvili znovu.',
+  noResults: 'Pro tento dotaz nebyli nalezeni zadni agenti. Zkuste jiny hledany vyraz.',
+  resultLabels: {
+    trustScore: 'Skore duvery',
+    capabilities: 'Schopnosti',
+    reputation: 'Reputace',
+    stake: 'Stake',
+    endorsements: 'Doporuceni',
+    matchScore: 'Shoda',
+    transactions: 'Transakce',
+    successful: 'uspesnych',
+    failed: 'neuspesnych',
+    endorsers: 'doporucitelu',
+  },
 };
 
 export const liveTestnet = {

@@ -2,6 +2,7 @@
 import SectionWrapper from './ui/SectionWrapper.astro';
 import FadeIn from './ui/FadeIn.astro';
 import CodeSnippet from './CodeSnippet.astro';
+import TryItWidget from './TryItWidget.astro';
 import { t, type Locale } from '../data/i18n';
 
 interface Props { locale: Locale }
@@ -86,6 +87,9 @@ function highlightLine(line: string): string {
       </FadeIn>
     ))}
   </div>
+
+  <!-- Interactive search widget -->
+  <TryItWidget locale={locale} />
 
   <!-- SDK note -->
   <FadeIn delay={500}>

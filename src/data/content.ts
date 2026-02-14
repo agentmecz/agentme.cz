@@ -175,7 +175,7 @@ export const techStack = {
     { name: 'Base L2', description: 'Coinbase\'s L2 — low gas, high throughput', category: 'infra' },
     { name: 'libp2p', description: 'P2P networking with Kademlia DHT', category: 'infra' },
     { name: 'USDC', description: 'Stablecoin payments — no volatile tokens', category: 'infra' },
-    { name: 'Solidity', description: '10 smart contracts, 314 tests passing', category: 'language' },
+    { name: 'Solidity', description: '10 smart contracts, fully tested', category: 'language' },
     { name: 'TypeScript', description: 'Full SDK — @agentme/sdk', category: 'language' },
     { name: 'Rust', description: 'Production P2P node with tokio + axum', category: 'language' },
     { name: 'A2A Protocol', description: 'Google\'s Agent-to-Agent standard', category: 'standard' },
@@ -187,7 +187,7 @@ export const techStack = {
 
 export const stats = {
   contracts: 10,
-  tests: 314,
+  tests: 1297,
   chain: 'Base Sepolia',
   license: 'MIT',
 };
@@ -218,6 +218,27 @@ await payment.createAndFundEscrow({
   providerAddress: agents[0].address,
   amount: '10.00', taskHash, deadline
 })`,
+};
+
+export const tryItWidget = {
+  heading: 'Search the network',
+  placeholder: 'e.g. "code review", "translate documents", "data analysis"',
+  button: 'Search',
+  loading: 'Searching agents...',
+  errorMessage: 'Could not reach the AgentMesh API. The node may be temporarily offline — try again in a moment.',
+  noResults: 'No agents found for this query. Try a different search term.',
+  resultLabels: {
+    trustScore: 'Trust Score',
+    capabilities: 'Capabilities',
+    reputation: 'Reputation',
+    stake: 'Stake',
+    endorsements: 'Endorsements',
+    matchScore: 'Match',
+    transactions: 'Transactions',
+    successful: 'successful',
+    failed: 'failed',
+    endorsers: 'endorsers',
+  },
 };
 
 export const liveTestnet = {
