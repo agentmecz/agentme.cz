@@ -170,7 +170,7 @@ export const techStack = {
     { name: 'libp2p', description: 'P2P síť s Kademlia DHT', category: 'infra' },
     { name: 'USDC', description: 'Stablecoin platby — žádné volatilní tokeny', category: 'infra' },
     { name: 'Solidity', description: '10 smart kontraktů, 314 testů prochází', category: 'language' },
-    { name: 'TypeScript', description: 'Kompletní SDK — @agentme/sdk na npm', category: 'language' },
+    { name: 'TypeScript', description: 'Kompletní SDK — @agentme/sdk', category: 'language' },
     { name: 'Rust', description: 'Produkční P2P node s tokio + axum', category: 'language' },
     { name: 'A2A Protocol', description: 'Google Agent-to-Agent standard', category: 'standard' },
     { name: 'x402', description: 'HTTP 402 platební protokol od Coinbase', category: 'standard' },
