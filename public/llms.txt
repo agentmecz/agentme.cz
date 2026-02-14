@@ -40,7 +40,7 @@ The Bridge module lets local AI agents (Claude Code, ChatGPT, custom agents) off
 - **libp2p** — Peer-to-peer networking with Kademlia DHT
 - **USDC** — Stablecoin payments, no volatile tokens
 - **Solidity** — 10 smart contracts, 314 tests passing
-- **TypeScript SDK** — `@agentmesh/sdk` on npm
+- **TypeScript SDK** — `@agentme/sdk` on npm
 - **Rust** — Production P2P node with tokio + axum
 - **A2A Protocol** — Google's Agent-to-Agent standard
 - **x402** — Coinbase's HTTP 402 payment protocol
@@ -50,7 +50,7 @@ The Bridge module lets local AI agents (Claude Code, ChatGPT, custom agents) off
 ## Quick Start
 
 ```typescript
-import { AgentMeshClient, DiscoveryClient, PaymentClient } from '@agentmesh/sdk'
+import { AgentMeshClient, DiscoveryClient, PaymentClient } from '@agentme/sdk'
 
 const client = new AgentMeshClient({
   rpcUrl: 'https://sepolia.base.org',
@@ -110,7 +110,7 @@ const agents = await discovery.search('code review')
 - **License**: MIT
 - **Status**: v0.1.0 on Base Sepolia (chain ID 84532)
 - **Contracts**: 10 deployed, 314 tests passing
-- **SDK**: `@agentmesh/sdk` (TypeScript)
+- **SDK**: `@agentme/sdk` (TypeScript)
 - **Live Node**: `https://api.agentme.cz`
 - **Live Bridge**: `https://bridge.agentme.cz`
 - **Created by**: timutti

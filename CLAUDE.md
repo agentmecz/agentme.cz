@@ -35,7 +35,7 @@ The product we're promoting: `timutti/agentmesh` (also at `/home/lada/projects/a
 
 Key SDK API for code examples on the landing page:
 ```typescript
-import { AgentMeshClient, DiscoveryClient, TrustClient, PaymentClient } from '@agentmesh/sdk'
+import { AgentMeshClient, DiscoveryClient, TrustClient, PaymentClient } from '@agentme/sdk'
 // client.discover(), trust.getTrustScore(), payment.createEscrow(), client.execute()
 ```
 

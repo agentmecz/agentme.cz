@@ -98,7 +98,7 @@ The product being promoted lives at `/home/lada/projects/agentmesh` (GitHub: `ti
 
 - **What:** Decentralized marketplace & trust layer for AI agents
 - **Tagline:** "The HTTP of agent-to-agent commerce"
-- **SDK:** `@agentmesh/sdk` on npm (TypeScript)
+- **SDK:** `@agentme/sdk` on npm (TypeScript)
 - **Chain:** Base L2 (Sepolia testnet), USDC payments
 - **Trust formula:** `0.50 × reputation + 0.30 × stake + 0.20 × endorsements`
 - **Contracts:** 10 smart contracts, 314 tests passing, deployed on Base Sepolia

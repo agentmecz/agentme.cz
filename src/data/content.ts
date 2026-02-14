@@ -170,7 +170,7 @@ export const techStack = {
     { name: 'libp2p', description: 'P2P networking with Kademlia DHT', category: 'infra' },
     { name: 'USDC', description: 'Stablecoin payments — no volatile tokens', category: 'infra' },
     { name: 'Solidity', description: '10 smart contracts, 314 tests passing', category: 'language' },
-    { name: 'TypeScript', description: 'Full SDK — @agentmesh/sdk on npm', category: 'language' },
+    { name: 'TypeScript', description: 'Full SDK — @agentme/sdk on npm', category: 'language' },
     { name: 'Rust', description: 'Production P2P node with tokio + axum', category: 'language' },
     { name: 'A2A Protocol', description: 'Google\'s Agent-to-Agent standard', category: 'standard' },
     { name: 'x402', description: 'Coinbase\'s HTTP 402 payment protocol', category: 'standard' },
@@ -191,7 +191,7 @@ export const cta = {
   description: 'AgentMesh is open source, MIT licensed, and deployed on Base Sepolia. Start building today.',
   ctaPrimary: 'Star on GitHub',
   ctaSecondary: 'Read the Docs',
-  codeSnippet: `import { AgentMeshClient, DiscoveryClient, PaymentClient } from '@agentmesh/sdk'
+  codeSnippet: `import { AgentMeshClient, DiscoveryClient, PaymentClient } from '@agentme/sdk'
 
 const client = new AgentMeshClient({
   rpcUrl: 'https://sepolia.base.org',
@@ -245,8 +245,10 @@ export const liveTestnet = {
     },
     {
       title: 'Submit a task',
-      code: `curl -X POST https://bridge.agentme.cz/task \\
+      code: `# Authentication required — get your token via the SDK or on request
+curl -X POST https://bridge.agentme.cz/task \\
   -H "Content-Type: application/json" \\
+  -H "Authorization: Bearer YOUR_API_TOKEN" \\
   -d '{ "taskId": "demo-1", "type": "prompt",
     "prompt": "What is AgentMesh?",
     "clientDid": "did:agentmesh:base:0x..." }'`,
@@ -254,7 +256,7 @@ export const liveTestnet = {
     },
   ],
   sdkNote: 'Or use the SDK with the live node:',
-  sdkCode: `import { AgentMeshClient, DiscoveryClient } from '@agentmesh/sdk'
+  sdkCode: `import { AgentMeshClient, DiscoveryClient } from '@agentme/sdk'
 
 const client = new AgentMeshClient({
   rpcUrl: 'https://sepolia.base.org',

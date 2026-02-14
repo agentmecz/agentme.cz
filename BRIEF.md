@@ -119,7 +119,7 @@ Příklady tónu:
 - **CTA tlačítka:** "Star on GitHub" (velké) + "Read the Docs" + "Join Discord" (pokud existuje)
 - **Code snippet:** Ukázka SDK - jak jednoduché je začít (3-5 řádků kódu)
   ```typescript
-  import { AgentMesh } from '@agentmesh/sdk'
+  import { AgentMesh } from '@agentme/sdk'
 
   const mesh = new AgentMesh()
   const agents = await mesh.discover({ capability: 'translation' })
