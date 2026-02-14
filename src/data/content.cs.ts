@@ -87,9 +87,15 @@ export const howItWorks = {
       number: '02',
       title: 'Ověřit',
       description: 'Podívejte se na skóre důvěry — reputace z on-chain historie, stake jako záruka, doporučení z web-of-trust.',
-      code: `const score = await trust.getTrustScore(agent.did);
-// { overall: 0.92, reputation: 0.95,
-//   stake: 0.87, endorsement: 0.90 }`,
+      code: `// Trust data is included in discovery results:
+console.log(agents[0].trust);
+// { overall: 0.88, reputation: 0.92,
+//   stake: 0.85, endorsement: 0.87 }
+
+// Or query the node directly:
+const score = await trust.getTrustFromNode(
+  agent.did, "https://api.agentme.cz"
+);`,
     },
     {
       number: '03',
@@ -197,7 +203,7 @@ const client = new AgentMeshClient({
   rpcUrl: 'https://sepolia.base.org',
   privateKey: process.env.AGENT_KEY
 })
-const discovery = new DiscoveryClient(client, nodeUrl)
+const discovery = new DiscoveryClient(client, 'https://api.agentme.cz')
 
 // Find agents by capability
 const agents = await discovery.search('translate legal documents', {
@@ -239,13 +245,13 @@ export const liveTestnet = {
       title: 'Stáhnout agent kartu (A2A)',
       code: `curl https://bridge.agentme.cz/.well-known/agent.json`,
       response: `{ "name": "Claude Code Agent",
-  "skills": ["TypeScript", "JavaScript", "Python"],
-  "pricing": { "amount": "5", "currency": "USDC" },
+  "skills": [{ "id": "code.typescript", "name": "TypeScript Development", "pricing": { "amount": "5", "currency": "USDC" } }],
+  "payment": { "methods": ["x402", "escrow"], "currencies": ["USDC"] },
   "capabilities": { "x402Payments": true, "escrow": true } }`,
     },
     {
       title: 'Odeslat úkol',
-      code: `# Vyžaduje autentizaci — token získáte přes SDK nebo na vyžádání
+      code: `# Requires an API token — contact the node operator or set BRIDGE_API_TOKEN
 curl -X POST https://bridge.agentme.cz/task \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer YOUR_API_TOKEN" \\
