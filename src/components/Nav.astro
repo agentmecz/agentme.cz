@@ -7,13 +7,14 @@ const { site, nav } = t(locale);
 const altLocale = getAlternateLang(locale);
 const altPath = getLocalePath(altLocale);
 
+const blogHref = locale === 'cs' ? '/cs/blog' : '/blog';
 const links = [
   { label: nav.protocol, href: '#protocol' },
   { label: nav.trust, href: '#trust' },
   { label: nav.payments, href: '#payments' },
   { label: nav.tryIt, href: '#live-testnet' },
   { label: nav.faq, href: '#faq' },
-  { label: 'Blog', href: '/blog' },
+  { label: 'Blog', href: blogHref },
 ];
 ---
 
