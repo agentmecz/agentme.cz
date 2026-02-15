@@ -9,13 +9,15 @@ interface Props {
   faqItems: { question: string; answer: string }[];
   siteUrl: string;
   repoUrl: string;
+  ogUrl?: string;
+  ogType?: string;
 }
 
-const { title, description, locale, faqItems, siteUrl, repoUrl } = Astro.props;
+const { title, description, locale, faqItems, siteUrl, repoUrl, ogUrl, ogType } = Astro.props;
 
 const ogLocale = ogLocales[locale];
 const altLocale = locale === 'en' ? 'cs' : 'en';
-const canonicalUrl = locale === 'en' ? siteUrl : `${siteUrl}/cs`;
+const canonicalUrl = ogUrl || (locale === 'en' ? siteUrl : `${siteUrl}/cs`);
 const altUrl = locale === 'en' ? `${siteUrl}/cs` : siteUrl;
 
 const organizationSchema = {
@@ -90,7 +92,7 @@ const faqSchema = {
     <meta name="keywords" content="AgentMe, AI agents, decentralized marketplace, agent-to-agent commerce, trust layer, x402 payments, USDC escrow, Base L2, on-chain reputation, open source, A2A protocol" />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType || "website"} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

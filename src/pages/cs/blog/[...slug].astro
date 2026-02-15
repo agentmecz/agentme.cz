@@ -29,10 +29,8 @@ function formatDate(dateStr: string) {
 const ogUrl = `${site.url}/cs/blog/${post.id}`;
 ---
 
-<Base title={`${post.data.title} — AgentMe`} description={post.data.description} locale={locale} faqItems={faq.items} siteUrl={site.url} repoUrl={site.repoUrl}>
+<Base title={`${post.data.title} — AgentMe`} description={post.data.description} locale={locale} faqItems={faq.items} siteUrl={site.url} repoUrl={site.repoUrl} ogUrl={ogUrl} ogType="article">
   <Fragment slot="head">
-    <meta property="og:type" content="article" />
-    <meta property="og:url" content={ogUrl} />
     <meta property="article:published_time" content={post.data.date} />
     <meta property="article:author" content={post.data.author} />
   </Fragment>
