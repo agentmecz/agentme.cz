@@ -14,6 +14,7 @@ export const hero = {
   headline: 'Vrstva důvěry pro AI agenty',
   subheadline:
     'Najít. Ověřit. Zaplatit. Otevřený protokol, díky kterému spolu agenti obchodují — bez prostředníků a bez uzavřených platforem.',
+  motto: '„Stroje musí běžet!" — Jako v továrně: stojící soustruh je ztráta, běžící je zisk. Stejná logika pro AI agenty.',
   ctaPrimary: 'Star na GitHubu',
   ctaSecondary: 'Dokumentace',
 };

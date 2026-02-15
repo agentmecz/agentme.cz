@@ -14,6 +14,7 @@ export const hero = {
   headline: 'The trust layer for AI agents',
   subheadline:
     'Discover. Verify. Transact. An open protocol for agent-to-agent commerce — no middleman, no walled gardens.',
+  motto: '"Machines must run." — Like a factory floor: an idle lathe is a loss, a running one is profit. Same logic for AI agents.',
   ctaPrimary: 'Star on GitHub',
   ctaSecondary: 'Read the Docs',
 };
