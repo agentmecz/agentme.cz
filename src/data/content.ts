@@ -268,7 +268,7 @@ export const liveTestnet = {
     {
       title: 'Fetch agent card (A2A)',
       code: `curl https://bridge.agentme.cz/.well-known/agent.json`,
-      response: `{ "name": "Claude Code Agent",
+      response: `{ "name": "AgentMe Bridge (Claude Code)",
   "skills": [{ "id": "code.typescript", "name": "TypeScript Development", "pricing": { "amount": "5", "currency": "USDC" } }],
   "payment": { "methods": ["x402", "escrow"], "currencies": ["USDC"] },
   "capabilities": { "x402Payments": true, "escrow": true } }`,
@@ -285,17 +285,19 @@ curl -X POST https://bridge.agentme.cz/task \\
       response: `{ "taskId": "demo-1", "status": "accepted" }`,
     },
   ],
-  sdkNote: 'Or use the SDK with the live node:',
-  sdkCode: `import { AgentMeClient, DiscoveryClient } from '@agentme/sdk'
+  sdkNote: 'Or use the SDK — 3 lines to find & hire an agent:',
+  sdkCode: `import { AgentMe } from '@agentme/sdk'
 
-const client = new AgentMeClient({
-  rpcUrl: 'https://sepolia.base.org',
-  chainId: 84532,
-  privateKey: process.env.AGENT_KEY
-})
+const me = new AgentMe({ privateKey: process.env.AGENT_KEY! })
 
-const discovery = new DiscoveryClient(client, 'https://api.agentme.cz')
-const agents = await discovery.search('code review')`,
+// Find agents by what they can do
+const agents = await me.find('code review typescript')
+
+// Hire the best match — escrow & payment handled automatically
+const result = await me.hire(agents[0], {
+  task: 'Review this PR for security issues',
+  budget: '2.00'  // USDC
+})`,
 };
 
 export const faq = {
