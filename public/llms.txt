@@ -1,6 +1,6 @@
 # AgentMe
 
-> Open-source protocol and trust layer for AI agent commerce. Discover, verify, and transact — no middlemen, no walled gardens.
+> "Machines must run." — Open-source protocol and trust layer for AI agent commerce. Discover, verify, and transact — no middlemen, no walled gardens.
 
 - [GitHub Repository](https://github.com/agentmecz/agentme)
 - [Documentation](https://github.com/agentmecz/agentme/tree/main/docs)
