@@ -2,6 +2,47 @@
 import SectionWrapper from './ui/SectionWrapper.astro';
 import FadeIn from './ui/FadeIn.astro';
 import GradientText from './ui/GradientText.astro';
+import type { Locale } from '../data/i18n';
+
+interface Props { locale?: Locale }
+const { locale = 'en' } = Astro.props;
+
+const texts = {
+  en: {
+    headline: 'Get Early Access',
+    description: 'Be among the first to build on AgentMe. Join the waitlist and we\'ll notify you when the protocol goes live on mainnet.',
+    email: 'you@example.com',
+    name: 'Name (optional)',
+    rolePlaceholder: 'I am a...',
+    developer: 'Developer',
+    founder: 'Founder',
+    enterprise: 'Enterprise',
+    other: 'Other',
+    submit: 'Join the Waitlist',
+    joining: 'Joining...',
+    success: '🎉 You\'re on the list! We\'ll be in touch.',
+    duplicate: 'You\'re already on the waitlist!',
+    error: 'Something went wrong. Try again or email prdko@agentme.cz',
+  },
+  cs: {
+    headline: 'Získej Early Access',
+    description: 'Buď mezi prvními, kdo staví na AgentMe. Přihlas se na waitlist a dáme ti vědět, až protokol poběží na mainnetu.',
+    email: 'ty@example.com',
+    name: 'Jméno (volitelné)',
+    rolePlaceholder: 'Jsem...',
+    developer: 'Vývojář',
+    founder: 'Zakladatel',
+    enterprise: 'Enterprise',
+    other: 'Ostatní',
+    submit: 'Přihlásit se na waitlist',
+    joining: 'Přihlašuji...',
+    success: '🎉 Jsi na seznamu! Ozveme se.',
+    duplicate: 'Už jsi na waitlistu!',
+    error: 'Něco se pokazilo. Zkus to znovu nebo napiš na prdko@agentme.cz',
+  },
+};
+
+const t = texts[locale] || texts.en;
 ---
 
 <section id="early-access" class="relative overflow-hidden">
@@ -13,10 +54,10 @@ import GradientText from './ui/GradientText.astro';
   <SectionWrapper class="relative z-10 text-center">
     <FadeIn>
       <h2 class="mb-4 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
-        <GradientText as="span">Get Early Access</GradientText>
+        <GradientText as="span">{t.headline}</GradientText>
       </h2>
       <p class="mb-8 text-text-secondary max-w-xl mx-auto">
-        Be among the first to build on AgentMe. Join the waitlist and we'll notify you when the protocol goes live on mainnet.
+        {t.description}
       </p>
     </FadeIn>
 
@@ -27,7 +68,7 @@ import GradientText from './ui/GradientText.astro';
             type="email"
             name="email"
             required
-            placeholder="you@example.com"
+            placeholder={t.email}
             class="w-full rounded-lg border border-border bg-bg-secondary px-4 py-3 text-text-primary placeholder:text-text-muted focus:border-accent-cyan focus:outline-none focus:ring-1 focus:ring-accent-cyan transition-colors"
           />
         </div>
@@ -36,30 +77,36 @@ import GradientText from './ui/GradientText.astro';
           <input
             type="text"
             name="name"
-            placeholder="Name (optional)"
+            placeholder={t.name}
             class="rounded-lg border border-border bg-bg-secondary px-4 py-3 text-text-primary placeholder:text-text-muted focus:border-accent-cyan focus:outline-none focus:ring-1 focus:ring-accent-cyan transition-colors"
           />
           <select
             name="role"
             class="rounded-lg border border-border bg-bg-secondary px-4 py-3 text-text-muted focus:border-accent-cyan focus:outline-none focus:ring-1 focus:ring-accent-cyan transition-colors appearance-none"
           >
-            <option value="">I am a...</option>
-            <option value="developer">Developer</option>
-            <option value="founder">Founder</option>
-            <option value="enterprise">Enterprise</option>
-            <option value="other">Other</option>
+            <option value="">{t.rolePlaceholder}</option>
+            <option value="developer">{t.developer}</option>
+            <option value="founder">{t.founder}</option>
+            <option value="enterprise">{t.enterprise}</option>
+            <option value="other">{t.other}</option>
           </select>
         </div>
 
         <button
           type="submit"
           id="waitlist-btn"
+          data-label={t.submit}
+          data-joining={t.joining}
           class="w-full rounded-lg bg-gradient-to-r from-accent-cyan to-accent-purple px-8 py-3 font-medium text-bg-primary transition-all duration-300 hover:shadow-[0_0_24px_rgba(0,212,255,0.3)] hover:scale-[1.02] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
-          Join the Waitlist
+          {t.submit}
         </button>
 
-        <div id="waitlist-msg" class="text-sm hidden"></div>
+        <div id="waitlist-msg" class="text-sm hidden"
+          data-success={t.success}
+          data-duplicate={t.duplicate}
+          data-error={t.error}
+        ></div>
       </form>
     </FadeIn>
   </SectionWrapper>
@@ -73,10 +120,13 @@ import GradientText from './ui/GradientText.astro';
   const btn = document.getElementById('waitlist-btn') as HTMLButtonElement;
   const msg = document.getElementById('waitlist-msg') as HTMLDivElement;
 
+  const labelDefault = btn.dataset.label!;
+  const labelJoining = btn.dataset.joining!;
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     btn.disabled = true;
-    btn.textContent = 'Joining...';
+    btn.textContent = labelJoining;
     msg.classList.add('hidden');
 
     const formData = new FormData(form);
@@ -102,21 +152,21 @@ import GradientText from './ui/GradientText.astro';
       });
 
       if (res.ok) {
-        msg.textContent = '🎉 You\'re on the list! We\'ll be in touch.';
+        msg.textContent = msg.dataset.success!;
         msg.className = 'text-sm text-accent-cyan';
         form.reset();
       } else if (res.status === 409) {
-        msg.textContent = 'You\'re already on the waitlist!';
+        msg.textContent = msg.dataset.duplicate!;
         msg.className = 'text-sm text-accent-purple';
       } else {
         throw new Error(`HTTP ${res.status}`);
       }
     } catch (err) {
-      msg.textContent = 'Something went wrong. Try again or email prdko@agentme.cz';
+      msg.textContent = msg.dataset.error!;
       msg.className = 'text-sm text-red-400';
     } finally {
       btn.disabled = false;
-      btn.textContent = 'Join the Waitlist';
+      btn.textContent = labelDefault;
     }
   });
 </script>

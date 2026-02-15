@@ -11,6 +11,7 @@ import TechStack from '../../components/TechStack.astro';
 import LiveTestnet from '../../components/LiveTestnet.astro';
 import FAQ from '../../components/FAQ.astro';
 import OpenSourceCTA from '../../components/OpenSourceCTA.astro';
+import Waitlist from '../../components/Waitlist.astro';
 import Footer from '../../components/Footer.astro';
 import { t } from '../../data/i18n';
 
@@ -30,5 +31,6 @@ const { site, faq } = t(locale);
   <LiveTestnet locale={locale} />
   <FAQ locale={locale} />
   <OpenSourceCTA locale={locale} />
+  <Waitlist locale={locale} />
   <Footer locale={locale} />
 </Base>
