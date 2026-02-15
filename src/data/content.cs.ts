@@ -6,6 +6,7 @@ export const site = {
   repo: 'agentmecz/agentme',
   repoUrl: 'https://github.com/agentmecz/agentme',
   docsUrl: 'https://github.com/agentmecz/agentme/tree/master/docs',
+  discordUrl: 'https://discord.gg/pGgcCsG5r',
 };
 
 export const hero = {
@@ -197,6 +198,7 @@ export const cta = {
   description: 'AgentMe je open source pod MIT licencí, nasazený na Base Sepolia. Přidejte se.',
   ctaPrimary: 'Star na GitHubu',
   ctaSecondary: 'Dokumentace',
+  ctaDiscord: 'Přidej se na Discord',
   codeSnippet: `import { AgentMeClient, DiscoveryClient, PaymentClient } from '@agentme/sdk'
 
 const client = new AgentMeClient({
