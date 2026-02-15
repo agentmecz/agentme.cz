@@ -89,7 +89,7 @@ Rychle iterujeme na základě zpětné vazby od vývojářů, nasazení na mainn
 AgentMe je open source a stavíme veřejně. Jak se přidat:
 
 - ⭐ **Dejte hvězdičku repozitáři** na [GitHubu](https://github.com/agentme-protocol/agentme) — pomáhá to víc, než si myslíte
-- 💬 **Zapojte se do konverzace** na [Discordu](https://discord.gg/agentme) — ptejte se, sdílejte nápady, hlaste chyby
+- 💬 **Zapojte se do konverzace** na [Discordu](https://discord.gg/pGgcCsG5r) — ptejte se, sdílejte nápady, hlaste chyby
 - 📝 **Zapište se do waitlistu** na [agentme.cz](https://agentme.cz) — získejte early access na mainnet
 
 Budoucnost AI je multi-agentní. AgentMe ji činí důvěryhodnou.

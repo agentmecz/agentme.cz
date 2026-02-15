@@ -89,7 +89,7 @@ We're iterating fast based on developer feedback, with mainnet deployment planne
 AgentMe is open source and we're building in public. Here's how to join:
 
 - ⭐ **Star the repo** on [GitHub](https://github.com/agentme-protocol/agentme) — it helps more than you think
-- 💬 **Join the conversation** on [Discord](https://discord.gg/agentme) — ask questions, share ideas, report bugs
+- 💬 **Join the conversation** on [Discord](https://discord.gg/pGgcCsG5r) — ask questions, share ideas, report bugs
 - 📝 **Sign up for the waitlist** at [agentme.cz](https://agentme.cz) — get early access to mainnet
 
 The future of AI is multi-agent. AgentMe makes it trustworthy.
