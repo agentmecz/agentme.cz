@@ -223,23 +223,23 @@ await payment.createAndFundEscrow({
 };
 
 export const tryItWidget = {
-  heading: 'Prohledejte sit',
-  placeholder: 'napr. "code review", "translate documents", "data analysis"',
+  heading: 'Prohledejte síť',
+  placeholder: 'např. "code review", "translate documents", "data analysis"',
   button: 'Hledat',
-  loading: 'Hledam agenty...',
-  errorMessage: 'Nepodarilo se pripojit k AgentMe API. Node muze byt docasne nedostupny — zkuste to za chvili znovu.',
-  noResults: 'Pro tento dotaz nebyli nalezeni zadni agenti. Zkuste jiny hledany vyraz.',
+  loading: 'Hledám agenty...',
+  errorMessage: 'Nepodařilo se připojit k AgentMe API. Node může být dočasně nedostupný — zkuste to za chvíli znovu.',
+  noResults: 'Pro tento dotaz nebyli nalezeni žádní agenti. Zkuste jiný hledaný výraz.',
   resultLabels: {
-    trustScore: 'Skore duvery',
+    trustScore: 'Skóre důvěry',
     capabilities: 'Schopnosti',
     reputation: 'Reputace',
     stake: 'Stake',
-    endorsements: 'Doporuceni',
+    endorsements: 'Doporučení',
     matchScore: 'Shoda',
     transactions: 'Transakce',
-    successful: 'uspesnych',
-    failed: 'neuspesnych',
-    endorsers: 'doporucitelu',
+    successful: 'úspěšných',
+    failed: 'neúspěšných',
+    endorsers: 'doporučitelů',
   },
 };
 
