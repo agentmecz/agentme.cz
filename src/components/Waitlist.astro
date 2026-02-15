@@ -1,0 +1,122 @@
+---
+import SectionWrapper from './ui/SectionWrapper.astro';
+import FadeIn from './ui/FadeIn.astro';
+import GradientText from './ui/GradientText.astro';
+---
+
+<section id="early-access" class="relative overflow-hidden">
+  <div
+    class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_50%_50%,rgba(0,212,255,0.06),transparent_70%)]"
+    aria-hidden="true"
+  />
+
+  <SectionWrapper class="relative z-10 text-center">
+    <FadeIn>
+      <h2 class="mb-4 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+        <GradientText as="span">Get Early Access</GradientText>
+      </h2>
+      <p class="mb-8 text-text-secondary max-w-xl mx-auto">
+        Be among the first to build on AgentMe. Join the waitlist and we'll notify you when the protocol goes live on mainnet.
+      </p>
+    </FadeIn>
+
+    <FadeIn delay={80}>
+      <form id="waitlist-form" class="max-w-md mx-auto space-y-4">
+        <div>
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="you@example.com"
+            class="w-full rounded-lg border border-border bg-bg-secondary px-4 py-3 text-text-primary placeholder:text-text-muted focus:border-accent-cyan focus:outline-none focus:ring-1 focus:ring-accent-cyan transition-colors"
+          />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <input
+            type="text"
+            name="name"
+            placeholder="Name (optional)"
+            class="rounded-lg border border-border bg-bg-secondary px-4 py-3 text-text-primary placeholder:text-text-muted focus:border-accent-cyan focus:outline-none focus:ring-1 focus:ring-accent-cyan transition-colors"
+          />
+          <select
+            name="role"
+            class="rounded-lg border border-border bg-bg-secondary px-4 py-3 text-text-muted focus:border-accent-cyan focus:outline-none focus:ring-1 focus:ring-accent-cyan transition-colors appearance-none"
+          >
+            <option value="">I am a...</option>
+            <option value="developer">Developer</option>
+            <option value="founder">Founder</option>
+            <option value="enterprise">Enterprise</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          id="waitlist-btn"
+          class="w-full rounded-lg bg-gradient-to-r from-accent-cyan to-accent-purple px-8 py-3 font-medium text-bg-primary transition-all duration-300 hover:shadow-[0_0_24px_rgba(0,212,255,0.3)] hover:scale-[1.02] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+        >
+          Join the Waitlist
+        </button>
+
+        <div id="waitlist-msg" class="text-sm hidden"></div>
+      </form>
+    </FadeIn>
+  </SectionWrapper>
+</section>
+
+<script>
+  const SUPABASE_URL = 'https://db.agentme.cz';
+  const SUPABASE_ANON_KEY = 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH';
+
+  const form = document.getElementById('waitlist-form') as HTMLFormElement;
+  const btn = document.getElementById('waitlist-btn') as HTMLButtonElement;
+  const msg = document.getElementById('waitlist-msg') as HTMLDivElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Joining...';
+    msg.classList.add('hidden');
+
+    const formData = new FormData(form);
+    const email = formData.get('email') as string;
+    const name = formData.get('name') as string;
+    const role = formData.get('role') as string;
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal',
+        },
+        body: JSON.stringify({
+          email,
+          name: name || null,
+          role: role || null,
+          source: 'web',
+        }),
+      });
+
+      if (res.ok) {
+        msg.textContent = '🎉 You\'re on the list! We\'ll be in touch.';
+        msg.className = 'text-sm text-accent-cyan';
+        form.reset();
+      } else if (res.status === 409) {
+        msg.textContent = 'You\'re already on the waitlist!';
+        msg.className = 'text-sm text-accent-purple';
+      } else {
+        throw new Error(`HTTP ${res.status}`);
+      }
+    } catch (err) {
+      msg.textContent = 'Something went wrong. Try again or email prdko@agentme.cz';
+      msg.className = 'text-sm text-red-400';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Join the Waitlist';
+    }
+  });
+</script>
