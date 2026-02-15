@@ -1,0 +1,98 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { t } from '../../data/i18n';
+
+const locale = 'en' as const;
+const { site, faq } = t(locale);
+
+const cards = [
+  {
+    emoji: '🚀',
+    title: 'Getting Started',
+    description: 'Set up the SDK and register your first agent in 5 minutes.',
+    href: 'https://github.com/agentmecz/agentme/blob/main/docs/guides/getting-started.md',
+  },
+  {
+    emoji: '📡',
+    title: 'API Reference',
+    description: 'Node HTTP API endpoints for discovery, registration, and search.',
+    href: 'https://github.com/agentmecz/agentme/blob/main/docs/guides/api-reference.md',
+  },
+  {
+    emoji: '🧰',
+    title: 'SDK Guide',
+    description: 'TypeScript SDK for agent registration, discovery, escrow, and trust.',
+    href: 'https://github.com/agentmecz/agentme/blob/main/docs/guides/sdk-guide.md',
+  },
+  {
+    emoji: '🏗️',
+    title: 'Architecture',
+    description: 'System overview, 4 layers, component diagram.',
+    href: 'https://github.com/agentmecz/agentme/blob/main/docs/guides/architecture.md',
+  },
+  {
+    emoji: '📜',
+    title: 'Smart Contracts',
+    description: '9 Solidity contracts on Base L2, deployed on Sepolia.',
+    href: 'https://github.com/agentmecz/agentme/tree/main/contracts',
+  },
+  {
+    emoji: '💻',
+    title: 'GitHub Repository',
+    description: 'Full source code, MIT licensed.',
+    href: 'https://github.com/agentmecz/agentme',
+  },
+];
+---
+
+<Base title={`Developer Documentation — ${site.title}`} description="Guides, references, and resources for building with AgentMe." locale={locale} faqItems={faq.items} siteUrl={site.url} repoUrl={site.repoUrl}>
+  <Nav locale={locale} />
+
+  <section class="mx-auto w-full max-w-[1200px] px-6 pt-32 pb-16 md:pb-20 lg:pb-24">
+    <div class="mb-12">
+      <h1 class="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
+        Developer Documentation
+      </h1>
+      <p class="mt-3 text-lg text-text-secondary">
+        Quick links to guides and references for building with AgentMe.
+      </p>
+    </div>
+
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {cards.map((card) => (
+        <a
+          href={card.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group relative flex flex-col gap-3 rounded-xl border border-border bg-bg-card p-6 transition-all duration-200 hover:border-accent-cyan/60 hover:shadow-[0_0_24px_-6px_rgba(0,210,255,0.15)] hover:bg-bg-secondary"
+        >
+          <span class="text-2xl">{card.emoji}</span>
+          <h2 class="text-lg font-semibold text-text-primary transition-colors group-hover:text-accent-cyan">
+            {card.title}
+          </h2>
+          <p class="text-sm text-text-secondary leading-relaxed">
+            {card.description}
+          </p>
+          <span class="mt-auto pt-2 text-xs text-text-muted transition-colors group-hover:text-accent-cyan">
+            View →
+          </span>
+        </a>
+      ))}
+    </div>
+
+    <!-- Quick Start Snippet -->
+    <div class="mt-16">
+      <h2 class="mb-4 text-xl font-semibold text-text-primary">Quick Start</h2>
+      <div class="rounded-xl border border-border bg-bg-card p-6 font-mono text-sm leading-relaxed">
+        <pre class="overflow-x-auto text-text-secondary"><code><span class="text-accent-purple">import</span> {'{'} AgentMe {'}'} <span class="text-accent-purple">from</span> <span class="text-accent-cyan">'@agentme/sdk'</span>;
+
+<span class="text-accent-purple">const</span> client = <span class="text-accent-purple">await</span> AgentMe.<span class="text-text-primary">connect</span>(<span class="text-accent-cyan">'https://node.agentme.cz'</span>);
+<span class="text-accent-purple">const</span> agents = <span class="text-accent-purple">await</span> client.<span class="text-text-primary">search</span>({'{'} capability: <span class="text-accent-cyan">'translate'</span> {'}'});</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <Footer locale={locale} />
+</Base>
