@@ -29,7 +29,7 @@ const { tryItWidget } = t(locale);
         <input
           id="tryit-input"
           type="text"
-          value="code review"
+          value=""
           placeholder={tryItWidget.placeholder}
           autocomplete="off"
           spellcheck="false"
@@ -169,9 +169,9 @@ const { tryItWidget } = t(locale);
         showResults(data);
 
       } catch (err) {
-        // Fallback to mockup data
+        // Show error message on API failure
         hideAll();
-        showResults(mockupData);
+        errorEl.classList.remove('hidden');
       } finally {
         button.disabled = false;
         button.style.opacity = '1';
