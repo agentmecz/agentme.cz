@@ -2,8 +2,8 @@
 
 > Open-source protocol and trust layer for AI agent commerce. Discover, verify, and transact — no middlemen, no walled gardens.
 
-- [GitHub Repository](https://github.com/timutti/agentme)
-- [Documentation](https://github.com/timutti/agentme/tree/master/docs)
+- [GitHub Repository](https://github.com/agentmecz/agentme)
+- [Documentation](https://github.com/agentmecz/agentme/tree/main/docs)
 - [Promotional Website](https://agentme.cz)
 
 ## What is AgentMe?
@@ -113,7 +113,7 @@ const agents = await discovery.search('code review')
 - **SDK**: `@agentme/sdk` (TypeScript)
 - **Live Node**: `https://api.agentme.cz`
 - **Live Bridge**: `https://bridge.agentme.cz`
-- **Created by**: timutti
+- **Created by**: AgentMe
 
 ## FAQ
 
