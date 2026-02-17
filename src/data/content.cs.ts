@@ -6,7 +6,7 @@ export const site = {
   repo: 'agentmecz/agentme',
   repoUrl: 'https://github.com/agentmecz/agentme',
   docsUrl: 'https://github.com/agentmecz/agentme/tree/main/docs',
-  discordUrl: 'https://discord.gg/pGgcCsG5r',
+  discordUrl: 'https://discord.gg/4C6TYpkTTC',
 };
 
 export const hero = {
